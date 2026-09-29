@@ -832,5 +832,9 @@
   "eip155:999:0x36094abe5e589691b8f60505823a72f5fdedc953": "registry/midas/calldata-RedemptionVault.json",
   "eip155:999:0x6131b5fae19ea4f9d964eac0408e4408b66337b5": "registry/kyberswap/calldata-MetaAggregationRouterV2.json",
   "eip155:999:0x65d0a14dd083c38244542bac0e0cd16d51c37458": "registry/midas/calldata-MinterVault.json",
-  "eip155:999:0xe226e4825cb215abafad98fdd400583eab6a594f": "registry/layerswap/calldata-LayerswapDepository.json"
+  "eip155:999:0xe226e4825cb215abafad98fdd400583eab6a594f": "registry/layerswap/calldata-LayerswapDepository.json",
+  "eip155:137:0x93a1b342f3df2c2bb5d0d8d5af819450ffa4be78": "registry/morpho/calldata-BlueBundlesV1.json",
+  "eip155:4663:0x53a1eb6589861f686af7c531211e35aefe30210f": "registry/morpho/calldata-BlueBundlesV1.json",
+  "eip155:5042:0x3c4bae2a2ef708ddaae40a0b66623afe44ef4a7f": "registry/morpho/calldata-BlueBundlesV1.json",
+  "eip155:42161:0x30a388a64b99192702a83d2ca9b95d79702afbf2": "registry/morpho/calldata-BlueBundlesV1.json"
 }
