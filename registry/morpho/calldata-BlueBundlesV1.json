@@ -5,8 +5,24 @@
     "contract": {
       "deployments": [
         {
+          "chainId": 137,
+          "address": "0x93a1B342f3DF2c2bb5D0d8D5AF819450fFA4bE78"
+        },
+        {
+          "chainId": 4663,
+          "address": "0x53A1eB6589861F686af7c531211E35Aefe30210f"
+        },
+        {
+          "chainId": 5042,
+          "address": "0x3c4BaE2a2Ef708ddaAE40A0b66623afE44eF4A7F"
+        },
+        {
           "chainId": 8453,
           "address": "0x4D28D900e381eCE4B351302f1Abe588496793A2b"
+        },
+        {
+          "chainId": 42161,
+          "address": "0x30a388A64b99192702a83D2CA9B95D79702afbf2"
         }
       ]
     }
