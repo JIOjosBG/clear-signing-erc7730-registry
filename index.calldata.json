@@ -836,5 +836,14 @@
   "eip155:137:0x93a1b342f3df2c2bb5d0d8d5af819450ffa4be78": "registry/morpho/calldata-BlueBundlesV1.json",
   "eip155:4663:0x53a1eb6589861f686af7c531211e35aefe30210f": "registry/morpho/calldata-BlueBundlesV1.json",
   "eip155:5042:0x3c4bae2a2ef708ddaae40a0b66623afe44ef4a7f": "registry/morpho/calldata-BlueBundlesV1.json",
-  "eip155:42161:0x30a388a64b99192702a83d2ca9b95d79702afbf2": "registry/morpho/calldata-BlueBundlesV1.json"
+  "eip155:42161:0x30a388a64b99192702a83d2ca9b95d79702afbf2": "registry/morpho/calldata-BlueBundlesV1.json",
+  "eip155:1:0x38b0c12ab81976e9417d4ebfe2a34db6df22e6ad": "registry/morpho/calldata-BlueBundlesV1.json",
+  "eip155:10:0x317ca3534f8cf92accb4b4366f48017e596bc34a": "registry/morpho/calldata-BlueBundlesV1.json",
+  "eip155:130:0x2c4331bc5ec245da744f35832c8797456cfc8045": "registry/morpho/calldata-BlueBundlesV1.json",
+  "eip155:143:0x9c76e91bf08e712a713e3bab2f5ae01f6ec8845a": "registry/morpho/calldata-BlueBundlesV1.json",
+  "eip155:480:0xed44094c917d891d68f46e8cc2fd50d790707a65": "registry/morpho/calldata-BlueBundlesV1.json",
+  "eip155:988:0xfb606389166c04828d6dba36f77871489673cea0": "registry/morpho/calldata-BlueBundlesV1.json",
+  "eip155:999:0x84849171e1783630e1c4253b9c9d4b4208b0d86a": "registry/morpho/calldata-BlueBundlesV1.json",
+  "eip155:4217:0xae863452f44add237739a85eb6bb1989e2368362": "registry/morpho/calldata-BlueBundlesV1.json",
+  "eip155:747474:0xca52e5b901d9939013fa8744dcbdee0b6bdd5b39": "registry/morpho/calldata-BlueBundlesV1.json"
 }
