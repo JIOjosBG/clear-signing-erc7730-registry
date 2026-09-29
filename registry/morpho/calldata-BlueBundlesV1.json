@@ -305,6 +305,7 @@
       },
       "blueBundlesV1Supply((address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) marketParams, uint256 assets, (uint8 kind, bytes data) loanTokenPermit, uint256 referralFeePct, address referralFeeRecipient, uint256 deadline)": {
         "intent": "Supply to Morpho market",
+        "interpolatedIntent": "Supply {#.assets} to Morpho",
         "fields": [
           {
             "label": "Amount to supply",
@@ -511,6 +512,7 @@
       },
       "blueBundlesV1MigrateBorrowPosition((address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) sourceMarketParams, (address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) destMarketParams, uint256 maxLtv, ((uint8 v, bytes32 r, bytes32 s) signature, uint256 nonce, uint256 deadline) signedAuthorization, (address vault, address adapter, (address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) marketParams, bool fromIdle, address sourceAdapter, (address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) sourceMarketParams, uint128 assets, uint64 penalty)[] reallocations, uint256 referralFeePct, address referralFeeRecipient, uint256 deadline)": {
         "intent": "Move borrow position",
+        "interpolatedIntent": "Move borrow position from {#.sourceMarketParams.lltv} to {#.destMarketParams.lltv} liquidation LTV",
         "fields": [
           {
             "label": "Collateral token",
