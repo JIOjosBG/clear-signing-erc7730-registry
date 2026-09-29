@@ -1,0 +1,679 @@
+{
+  "$schema": "../../specs/erc7730-v2.schema.json",
+  "context": {
+    "$id": "BlueBundlesV1",
+    "contract": {
+      "deployments": [
+        {
+          "chainId": 8453,
+          "address": "0x4D28D900e381eCE4B351302f1Abe588496793A2b"
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "owner": "Morpho DAO",
+    "info": {
+      "url": "https://morpho.org"
+    }
+  },
+  "display": {
+    "formats": {
+      "blueBundlesV1SupplyCollateralAndBorrow((address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) marketParams, uint256 collateralAssets, uint256 borrowAssets, uint256 maxLtv, (uint8 kind, bytes data) collateralPermit, ((uint8 v, bytes32 r, bytes32 s) signature, uint256 nonce, uint256 deadline) signedAuthorization, (address vault, address adapter, (address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) marketParams, bool fromIdle, address sourceAdapter, (address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) sourceMarketParams, uint128 assets, uint64 penalty)[] reallocations, uint256 referralFeePct, address referralFeeRecipient, uint256 deadline)": {
+        "intent": "Supply collateral and borrow",
+        "fields": [
+          {
+            "label": "Collateral to supply",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "#.marketParams.collateralToken"
+            },
+            "path": "#.collateralAssets",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Amount to borrow",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "#.marketParams.loanToken"
+            },
+            "path": "#.borrowAssets",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Max resulting LTV",
+            "format": "unit",
+            "params": {
+              "base": "%",
+              "decimals": 16
+            },
+            "path": "#.maxLtv",
+            "visible": {
+              "ifNotIn": [
+                "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+              ]
+            }
+          },
+          {
+            "label": "Referral fee",
+            "format": "unit",
+            "params": {
+              "base": "%",
+              "decimals": 16
+            },
+            "path": "#.referralFeePct",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Fee recipient",
+            "format": "addressName",
+            "params": {
+              "types": [
+                "eoa",
+                "wallet",
+                "contract"
+              ]
+            },
+            "path": "#.referralFeeRecipient",
+            "visible": {
+              "ifNotIn": [
+                "0x0000000000000000000000000000000000000000"
+              ]
+            }
+          },
+          {
+            "label": "Access granted until",
+            "format": "date",
+            "params": {
+              "encoding": "timestamp"
+            },
+            "path": "#.signedAuthorization.deadline",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Deadline",
+            "format": "date",
+            "params": {
+              "encoding": "timestamp"
+            },
+            "path": "#.deadline",
+            "visible": "always"
+          },
+          {
+            "label": "Market oracle",
+            "path": "#.marketParams.oracle",
+            "visible": "never"
+          },
+          {
+            "label": "Market rate model",
+            "path": "#.marketParams.irm",
+            "visible": "never"
+          },
+          {
+            "label": "Liquidation LTV",
+            "path": "#.marketParams.lltv",
+            "visible": "never"
+          },
+          {
+            "label": "Collateral permit",
+            "path": "#.collateralPermit",
+            "visible": "never"
+          },
+          {
+            "label": "Auth signature",
+            "path": "#.signedAuthorization.signature",
+            "visible": "never"
+          },
+          {
+            "label": "Auth nonce",
+            "path": "#.signedAuthorization.nonce",
+            "visible": "never"
+          },
+          {
+            "label": "Reallocations",
+            "path": "#.reallocations",
+            "visible": "never"
+          }
+        ]
+      },
+      "blueBundlesV1RepayAndWithdrawCollateral((address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) marketParams, uint256 repayAssets, uint256 repayShares, uint256 maxRepayAssets, uint256 collateralAssets, uint256 maxLtv, (uint8 kind, bytes data) loanTokenPermit, ((uint8 v, bytes32 r, bytes32 s) signature, uint256 nonce, uint256 deadline) signedAuthorization, uint256 referralFeePct, address referralFeeRecipient, uint256 deadline)": {
+        "intent": "Repay and withdraw collateral",
+        "fields": [
+          {
+            "label": "Amount to repay",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "#.marketParams.loanToken"
+            },
+            "path": "#.repayAssets",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Debt shares to repay",
+            "format": "raw",
+            "path": "#.repayShares",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Max amount to spend",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "#.marketParams.loanToken"
+            },
+            "path": "#.maxRepayAssets",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Withdraw collateral",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "#.marketParams.collateralToken"
+            },
+            "path": "#.collateralAssets",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Max resulting LTV",
+            "format": "unit",
+            "params": {
+              "base": "%",
+              "decimals": 16
+            },
+            "path": "#.maxLtv",
+            "visible": {
+              "ifNotIn": [
+                "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+              ]
+            }
+          },
+          {
+            "label": "Referral fee",
+            "format": "unit",
+            "params": {
+              "base": "%",
+              "decimals": 16
+            },
+            "path": "#.referralFeePct",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Fee recipient",
+            "format": "addressName",
+            "params": {
+              "types": [
+                "eoa",
+                "wallet",
+                "contract"
+              ]
+            },
+            "path": "#.referralFeeRecipient",
+            "visible": {
+              "ifNotIn": [
+                "0x0000000000000000000000000000000000000000"
+              ]
+            }
+          },
+          {
+            "label": "Access granted until",
+            "format": "date",
+            "params": {
+              "encoding": "timestamp"
+            },
+            "path": "#.signedAuthorization.deadline",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Deadline",
+            "format": "date",
+            "params": {
+              "encoding": "timestamp"
+            },
+            "path": "#.deadline",
+            "visible": "always"
+          },
+          {
+            "label": "Market oracle",
+            "path": "#.marketParams.oracle",
+            "visible": "never"
+          },
+          {
+            "label": "Market rate model",
+            "path": "#.marketParams.irm",
+            "visible": "never"
+          },
+          {
+            "label": "Liquidation LTV",
+            "path": "#.marketParams.lltv",
+            "visible": "never"
+          },
+          {
+            "label": "Loan token permit",
+            "path": "#.loanTokenPermit",
+            "visible": "never"
+          },
+          {
+            "label": "Auth signature",
+            "path": "#.signedAuthorization.signature",
+            "visible": "never"
+          },
+          {
+            "label": "Auth nonce",
+            "path": "#.signedAuthorization.nonce",
+            "visible": "never"
+          }
+        ]
+      },
+      "blueBundlesV1Supply((address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) marketParams, uint256 assets, (uint8 kind, bytes data) loanTokenPermit, uint256 referralFeePct, address referralFeeRecipient, uint256 deadline)": {
+        "intent": "Supply to Morpho market",
+        "fields": [
+          {
+            "label": "Amount to supply",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "#.marketParams.loanToken"
+            },
+            "path": "#.assets",
+            "visible": "always"
+          },
+          {
+            "label": "Referral fee",
+            "format": "unit",
+            "params": {
+              "base": "%",
+              "decimals": 16
+            },
+            "path": "#.referralFeePct",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Fee recipient",
+            "format": "addressName",
+            "params": {
+              "types": [
+                "eoa",
+                "wallet",
+                "contract"
+              ]
+            },
+            "path": "#.referralFeeRecipient",
+            "visible": {
+              "ifNotIn": [
+                "0x0000000000000000000000000000000000000000"
+              ]
+            }
+          },
+          {
+            "label": "Deadline",
+            "format": "date",
+            "params": {
+              "encoding": "timestamp"
+            },
+            "path": "#.deadline",
+            "visible": "always"
+          },
+          {
+            "label": "Collateral token",
+            "path": "#.marketParams.collateralToken",
+            "visible": "never"
+          },
+          {
+            "label": "Market oracle",
+            "path": "#.marketParams.oracle",
+            "visible": "never"
+          },
+          {
+            "label": "Market rate model",
+            "path": "#.marketParams.irm",
+            "visible": "never"
+          },
+          {
+            "label": "Liquidation LTV",
+            "path": "#.marketParams.lltv",
+            "visible": "never"
+          },
+          {
+            "label": "Loan token permit",
+            "path": "#.loanTokenPermit",
+            "visible": "never"
+          }
+        ]
+      },
+      "blueBundlesV1Withdraw((address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) marketParams, uint256 withdrawAssets, uint256 withdrawShares, ((uint8 v, bytes32 r, bytes32 s) signature, uint256 nonce, uint256 deadline) signedAuthorization, (address vault, address adapter, (address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) marketParams, bool fromIdle, address sourceAdapter, (address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) sourceMarketParams, uint128 assets, uint64 penalty)[] reallocations, uint256 referralFeePct, address referralFeeRecipient, uint256 deadline)": {
+        "intent": "Withdraw from Morpho market",
+        "fields": [
+          {
+            "label": "Amount to withdraw",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "#.marketParams.loanToken"
+            },
+            "path": "#.withdrawAssets",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Shares to withdraw",
+            "format": "raw",
+            "path": "#.withdrawShares",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Token",
+            "format": "addressName",
+            "params": {
+              "types": [
+                "token"
+              ]
+            },
+            "path": "#.marketParams.loanToken",
+            "visible": "always"
+          },
+          {
+            "label": "Referral fee",
+            "format": "unit",
+            "params": {
+              "base": "%",
+              "decimals": 16
+            },
+            "path": "#.referralFeePct",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Fee recipient",
+            "format": "addressName",
+            "params": {
+              "types": [
+                "eoa",
+                "wallet",
+                "contract"
+              ]
+            },
+            "path": "#.referralFeeRecipient",
+            "visible": {
+              "ifNotIn": [
+                "0x0000000000000000000000000000000000000000"
+              ]
+            }
+          },
+          {
+            "label": "Access granted until",
+            "format": "date",
+            "params": {
+              "encoding": "timestamp"
+            },
+            "path": "#.signedAuthorization.deadline",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Deadline",
+            "format": "date",
+            "params": {
+              "encoding": "timestamp"
+            },
+            "path": "#.deadline",
+            "visible": "always"
+          },
+          {
+            "label": "Collateral token",
+            "path": "#.marketParams.collateralToken",
+            "visible": "never"
+          },
+          {
+            "label": "Market oracle",
+            "path": "#.marketParams.oracle",
+            "visible": "never"
+          },
+          {
+            "label": "Market rate model",
+            "path": "#.marketParams.irm",
+            "visible": "never"
+          },
+          {
+            "label": "Liquidation LTV",
+            "path": "#.marketParams.lltv",
+            "visible": "never"
+          },
+          {
+            "label": "Auth signature",
+            "path": "#.signedAuthorization.signature",
+            "visible": "never"
+          },
+          {
+            "label": "Auth nonce",
+            "path": "#.signedAuthorization.nonce",
+            "visible": "never"
+          },
+          {
+            "label": "Reallocations",
+            "path": "#.reallocations",
+            "visible": "never"
+          }
+        ]
+      },
+      "blueBundlesV1MigrateBorrowPosition((address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) sourceMarketParams, (address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) destMarketParams, uint256 maxLtv, ((uint8 v, bytes32 r, bytes32 s) signature, uint256 nonce, uint256 deadline) signedAuthorization, (address vault, address adapter, (address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) marketParams, bool fromIdle, address sourceAdapter, (address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) sourceMarketParams, uint128 assets, uint64 penalty)[] reallocations, uint256 referralFeePct, address referralFeeRecipient, uint256 deadline)": {
+        "intent": "Move borrow position",
+        "fields": [
+          {
+            "label": "Collateral token",
+            "format": "addressName",
+            "params": {
+              "types": [
+                "token"
+              ]
+            },
+            "path": "#.sourceMarketParams.collateralToken",
+            "visible": "always"
+          },
+          {
+            "label": "Loan token",
+            "format": "addressName",
+            "params": {
+              "types": [
+                "token"
+              ]
+            },
+            "path": "#.sourceMarketParams.loanToken",
+            "visible": "always"
+          },
+          {
+            "label": "Old liquidation LTV",
+            "format": "unit",
+            "params": {
+              "base": "%",
+              "decimals": 16
+            },
+            "path": "#.sourceMarketParams.lltv",
+            "visible": "always"
+          },
+          {
+            "label": "New liquidation LTV",
+            "format": "unit",
+            "params": {
+              "base": "%",
+              "decimals": 16
+            },
+            "path": "#.destMarketParams.lltv",
+            "visible": "always"
+          },
+          {
+            "label": "New market oracle",
+            "format": "addressName",
+            "params": {
+              "types": [
+                "contract"
+              ]
+            },
+            "path": "#.destMarketParams.oracle",
+            "visible": "always"
+          },
+          {
+            "label": "Max resulting LTV",
+            "format": "unit",
+            "params": {
+              "base": "%",
+              "decimals": 16
+            },
+            "path": "#.maxLtv",
+            "visible": {
+              "ifNotIn": [
+                "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+              ]
+            }
+          },
+          {
+            "label": "Referral fee",
+            "format": "unit",
+            "params": {
+              "base": "%",
+              "decimals": 16
+            },
+            "path": "#.referralFeePct",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Fee recipient",
+            "format": "addressName",
+            "params": {
+              "types": [
+                "eoa",
+                "wallet",
+                "contract"
+              ]
+            },
+            "path": "#.referralFeeRecipient",
+            "visible": {
+              "ifNotIn": [
+                "0x0000000000000000000000000000000000000000"
+              ]
+            }
+          },
+          {
+            "label": "Access granted until",
+            "format": "date",
+            "params": {
+              "encoding": "timestamp"
+            },
+            "path": "#.signedAuthorization.deadline",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
+            "label": "Deadline",
+            "format": "date",
+            "params": {
+              "encoding": "timestamp"
+            },
+            "path": "#.deadline",
+            "visible": "always"
+          },
+          {
+            "label": "Old market oracle",
+            "path": "#.sourceMarketParams.oracle",
+            "visible": "never"
+          },
+          {
+            "label": "Old rate model",
+            "path": "#.sourceMarketParams.irm",
+            "visible": "never"
+          },
+          {
+            "label": "New loan token",
+            "path": "#.destMarketParams.loanToken",
+            "visible": "never"
+          },
+          {
+            "label": "New collateral token",
+            "path": "#.destMarketParams.collateralToken",
+            "visible": "never"
+          },
+          {
+            "label": "New rate model",
+            "path": "#.destMarketParams.irm",
+            "visible": "never"
+          },
+          {
+            "label": "Auth signature",
+            "path": "#.signedAuthorization.signature",
+            "visible": "never"
+          },
+          {
+            "label": "Auth nonce",
+            "path": "#.signedAuthorization.nonce",
+            "visible": "never"
+          },
+          {
+            "label": "Reallocations",
+            "path": "#.reallocations",
+            "visible": "never"
+          }
+        ]
+      }
+    }
+  }
+}
