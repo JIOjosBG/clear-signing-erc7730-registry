@@ -1,0 +1,36 @@
+{
+  "indexVersion": 1,
+  "pr": 1,
+  "updatedAt": "2026-10-02T15:34:41.042Z",
+  "runs": [
+    {
+      "runId": 37027763332,
+      "runUrl": "https://github.com/JIOjosBG/clear-signing-erc7730-registry/actions/runs/37027763332",
+      "headSha": "6e3f855b3a48e45956327522f04c4bcbb3170304",
+      "startedAt": "2026-10-02T15:33:03Z",
+      "completedAt": "2026-10-02T15:34:19Z",
+      "generatedAt": "2026-10-02T15:34:40.563Z",
+      "schemaVersion": 1,
+      "summary": {
+        "descriptors": 4,
+        "missingTests": 0,
+        "cases": 19,
+        "byStatus": {
+          "rust-clear-signing": {
+            "pass": 19,
+            "fail": 0,
+            "error": 0,
+            "skipped": 0
+          },
+          "sourcify-ts-clear-signing": {
+            "pass": 19,
+            "fail": 0,
+            "error": 0,
+            "skipped": 0
+          }
+        },
+        "disagreements": 0
+      }
+    }
+  ]
+}
