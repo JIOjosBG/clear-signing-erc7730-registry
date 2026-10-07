@@ -123,6 +123,10 @@
         "intent": "Supply collateral and borrow",
         "fields": [
           {
+            "label": "Native collateral",
+            "value": "0.002 ETH"
+          },
+          {
             "label": "Collateral to supply",
             "value": "0.002 WETH"
           },
@@ -312,6 +316,10 @@
       "expected": {
         "intent": "Repay and withdraw collateral",
         "fields": [
+          {
+            "label": "Native to repay",
+            "value": "0.22 ETH"
+          },
           {
             "label": "Amount to repay",
             "value": "0.22 WETH"

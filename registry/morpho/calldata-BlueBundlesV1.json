@@ -203,6 +203,16 @@
         "intent": "Supply collateral and borrow",
         "fields": [
           {
+            "label": "Native collateral",
+            "format": "amount",
+            "path": "@.value",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
+          {
             "label": "Collateral to supply",
             "format": "tokenAmount",
             "params": {
@@ -335,6 +345,16 @@
       "blueBundlesV1RepayAndWithdrawCollateral((address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) marketParams, uint256 repayAssets, uint256 repayShares, uint256 maxRepayAssets, uint256 collateralAssets, uint256 maxLtv, (uint8 kind, bytes data) loanTokenPermit, ((uint8 v, bytes32 r, bytes32 s) signature, uint256 nonce, uint256 deadline) signedAuthorization, uint256 referralFeePct, address referralFeeRecipient, uint256 deadline)": {
         "intent": "Repay and withdraw collateral",
         "fields": [
+          {
+            "label": "Native to repay",
+            "format": "amount",
+            "path": "@.value",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
           {
             "label": "Amount to repay",
             "format": "tokenAmount",
@@ -487,6 +507,16 @@
         "intent": "Supply to Morpho market",
         "interpolatedIntent": "Supply {#.assets} to Morpho",
         "fields": [
+          {
+            "label": "Native to supply",
+            "format": "amount",
+            "path": "@.value",
+            "visible": {
+              "ifNotIn": [
+                "0"
+              ]
+            }
+          },
           {
             "label": "Amount to supply",
             "format": "tokenAmount",
