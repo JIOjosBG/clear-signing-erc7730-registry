@@ -27,6 +27,7 @@
       "txHash": "0x6ef098a3a3fd29627c14d980bba2f9d2e14c413ef43806b4855bfd892ed0de04",
       "expected": {
         "intent": "Fixed-rate lend or repay",
+        "interpolatedIntent": "Fixed-rate lend or repay with 0% referral fee",
         "fields": [
           {
             "label": "Value at maturity",
@@ -49,6 +50,10 @@
             "value": "0x163783EF428721DB3FbDEBC8b397bB7e1a888F44"
           },
           {
+            "label": "Referral fee",
+            "value": "0%"
+          },
+          {
             "label": "Deadline",
             "value": "2026-08-26 16:04:57Z"
           },
@@ -66,6 +71,7 @@
       "txHash": "0x4710a88c2a44a8c65f6a42589b0145789a717396648d62269f788712baf91913",
       "expected": {
         "intent": "Fixed-rate lend or repay",
+        "interpolatedIntent": "Fixed-rate lend or repay with 0% referral fee",
         "fields": [
           {
             "label": "Amount to pay",
@@ -78,6 +84,10 @@
           {
             "label": "Market collateral",
             "value": "WETH"
+          },
+          {
+            "label": "Referral fee",
+            "value": "0%"
           },
           {
             "label": "Deadline",
@@ -97,6 +107,7 @@
       "txHash": "0x69954f48d1220691fbe2695ff0da81798faaeea9be900f4693ef90506d9a755c",
       "expected": {
         "intent": "Fixed-rate lend or repay",
+        "interpolatedIntent": "Fixed-rate lend or repay with 0% referral fee",
         "fields": [
           {
             "label": "Amount to pay",
@@ -113,6 +124,10 @@
           {
             "label": "Market collateral",
             "value": "cbBTC"
+          },
+          {
+            "label": "Referral fee",
+            "value": "0%"
           },
           {
             "label": "Deadline",
@@ -132,6 +147,7 @@
       "txHash": "0x52dd093e08d9263b620dd784bbc1a8c31813dd76f68c43b1c9ec2e76e08939cc",
       "expected": {
         "intent": "Fixed-rate borrow or exit",
+        "interpolatedIntent": "Fixed-rate borrow or exit with 0% referral fee",
         "fields": [
           {
             "label": "Amount to receive",
@@ -158,6 +174,10 @@
             "value": "100"
           },
           {
+            "label": "Referral fee",
+            "value": "0%"
+          },
+          {
             "label": "Deadline",
             "value": "2026-09-29 21:40:09Z"
           },
@@ -175,6 +195,7 @@
       "txHash": "0x42125cbc866a614458b4d2bc1711ea6e2d21e23002a5c6851c41dcfa020bbb2b",
       "expected": {
         "intent": "Fixed-rate borrow or exit",
+        "interpolatedIntent": "Fixed-rate borrow or exit with 0% referral fee",
         "fields": [
           {
             "label": "Amount to receive",
@@ -197,6 +218,10 @@
             "value": "10070189"
           },
           {
+            "label": "Referral fee",
+            "value": "0%"
+          },
+          {
             "label": "Deadline",
             "value": "2026-09-26 17:04:47Z"
           },
@@ -214,6 +239,7 @@
       "txHash": "0xc025646cfb398ac3cda66853a473c34aa9e6cfc85d7f490e04169f6221dedc1a",
       "expected": {
         "intent": "Fixed-rate borrow or exit",
+        "interpolatedIntent": "Fixed-rate borrow or exit with 0% referral fee",
         "fields": [
           {
             "label": "Value at maturity",
@@ -230,6 +256,10 @@
           {
             "label": "Market collateral",
             "value": "cbBTC"
+          },
+          {
+            "label": "Referral fee",
+            "value": "0%"
           },
           {
             "label": "Deadline",
@@ -249,6 +279,7 @@
       "txHash": "0x2babdd6b8bda8be4ed0ec07672e90bdc46ee5baac4455d0b32ff23fef01650d4",
       "expected": {
         "intent": "Repay and withdraw collateral",
+        "interpolatedIntent": "Repay and withdraw collateral with 0% referral fee",
         "fields": [
           {
             "label": "Repay for",
@@ -265,6 +296,10 @@
           {
             "label": "Collateral to",
             "value": "0xe98c0c31d42AF8DEAf4c108F47e91A690db4C6D1"
+          },
+          {
+            "label": "Referral fee",
+            "value": "0%"
           }
         ],
         "owner": "Morpho DAO"
@@ -276,6 +311,7 @@
       "txHash": "0x57b5b750ce6b5c2534f15469a8b7d1f23a84b42e9c3058f860d841b231630143",
       "expected": {
         "intent": "Repay and withdraw collateral",
+        "interpolatedIntent": "Repay and withdraw collateral with 0% referral fee",
         "fields": [
           {
             "label": "Repay for",
@@ -296,6 +332,10 @@
           {
             "label": "Collateral to",
             "value": "0x75d682B2568189C57273A9d40e6d2C819eD595cd"
+          },
+          {
+            "label": "Referral fee",
+            "value": "0%"
           }
         ],
         "owner": "Morpho DAO"
@@ -307,6 +347,7 @@
       "txHash": "0x68bec6559f8a1c6659dc163833af590537ba00f4c4a27b5278091904a7731898",
       "expected": {
         "intent": "Repay and withdraw collateral",
+        "interpolatedIntent": "Repay and withdraw collateral with 0% referral fee",
         "fields": [
           {
             "label": "Amount to repay",
@@ -323,6 +364,10 @@
           {
             "label": "Collateral to",
             "value": "0x7B93C2945Cc847819F39bf6C9c959160EA9b42C1"
+          },
+          {
+            "label": "Referral fee",
+            "value": "0%"
           }
         ],
         "owner": "Morpho DAO"

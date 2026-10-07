@@ -22,14 +22,19 @@
       "txHash": "0xc0b6df79ef9fe4633d67e8d198802591400a2a1a1fce0a48f5cf751ddb6e5e38",
       "expected": {
         "intent": "Deposit to vault",
+        "interpolatedIntent": "Deposit to vault with 0% referral fee",
         "fields": [
           {
             "label": "Vault",
             "value": "0x050cE30b927Da55177A4914EC73480238BAD56f0"
           },
           {
-            "label": "Amount (base units)",
+            "label": "Base units, with fee",
             "value": "2000000000"
+          },
+          {
+            "label": "Referral fee",
+            "value": "0%"
           },
           {
             "label": "Deadline",
@@ -45,14 +50,19 @@
       "txHash": "0xb0f81c54abb0ab71076ef634b72947aad44c3fc7eb1fbac1b302457e2370e916",
       "expected": {
         "intent": "Deposit to vault",
+        "interpolatedIntent": "Deposit to vault with 0% referral fee",
         "fields": [
           {
             "label": "Vault",
             "value": "0xbeef0e0834849aCC03f0089F01f4F1Eeb06873C9"
           },
           {
-            "label": "Amount (base units)",
+            "label": "Base units, with fee",
             "value": "10000000000"
+          },
+          {
+            "label": "Referral fee",
+            "value": "0%"
           },
           {
             "label": "Deadline",
@@ -68,14 +78,19 @@
       "txHash": "0xab1bbdce48cb5abb7cb29a78d37ca1de412dfc309d3dc6f016fef9a2b77d0316",
       "expected": {
         "intent": "Deposit to vault",
+        "interpolatedIntent": "Deposit to vault with 0% referral fee",
         "fields": [
           {
             "label": "Vault",
             "value": "0xa0E430870c4604CcfC7B38Ca7845B1FF653D0ff1"
           },
           {
-            "label": "Amount (base units)",
+            "label": "Base units, with fee",
             "value": "1679114718552484"
+          },
+          {
+            "label": "Referral fee",
+            "value": "0%"
           },
           {
             "label": "Deadline",
@@ -91,18 +106,23 @@
       "txHash": "0xd459add018d6555bdc8f0928230849915b3a28346631ce47e540a1bd84f63bc8",
       "expected": {
         "intent": "Deposit to vault",
+        "interpolatedIntent": "Deposit to vault with 0% referral fee",
         "fields": [
           {
             "label": "Vault",
             "value": "0xBCA4E2E24A7cFa776E4282CC8Eb06f04738b71da"
           },
           {
-            "label": "Amount (base units)",
+            "label": "Base units, with fee",
             "value": "50100000000000000"
           },
           {
             "label": "Native to deposit",
             "value": "0.0501 ETH"
+          },
+          {
+            "label": "Referral fee",
+            "value": "0%"
           },
           {
             "label": "Deadline",
@@ -164,6 +184,7 @@
       "txHash": "0x3b2727a0bf86e7f3029109a618b7d5f801f9244bd9e1b182c522dfb6bc5a1ba9",
       "expected": {
         "intent": "Move to another vault",
+        "interpolatedIntent": "Move to another vault with 0% referral fee",
         "fields": [
           {
             "label": "From vault",
@@ -176,6 +197,10 @@
           {
             "label": "Shares to move",
             "value": "0.04033210861146132 gtWETHc"
+          },
+          {
+            "label": "Referral fee",
+            "value": "0%"
           },
           {
             "label": "Deadline",

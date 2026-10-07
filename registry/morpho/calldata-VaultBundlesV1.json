@@ -58,6 +58,7 @@
     "formats": {
       "vaultBundlesV1Deposit(address vault, uint256 assets, uint256 maxSharePriceE27, (uint8 kind, bytes data) assetPermit, uint256 referralFeePct, address referralFeeRecipient, uint256 deadline)": {
         "intent": "Deposit to vault",
+        "interpolatedIntent": "Deposit to vault with {#.referralFeePct} referral fee",
         "fields": [
           {
             "label": "Vault",
@@ -66,14 +67,14 @@
             "path": "#.vault",
             "visible": "always"
           },
-          { "label": "Amount (base units)", "format": "raw", "path": "#.assets", "visible": "always" },
+          { "label": "Base units, with fee", "format": "raw", "path": "#.assets", "visible": "always" },
           { "label": "Native to deposit", "format": "amount", "path": "@.value", "visible": { "ifNotIn": ["0"] } },
           {
             "label": "Referral fee",
             "format": "unit",
             "params": { "base": "%", "decimals": 16 },
             "path": "#.referralFeePct",
-            "visible": { "ifNotIn": ["0"] }
+            "visible": "always"
           },
           {
             "label": "Fee recipient",
@@ -137,6 +138,7 @@
       },
       "vaultBundlesV1Migrate(address sourceVault, address destVault, uint256 assetsWithdrawn, uint256 sharesRedeemed, uint256 destMaxSharePriceE27, (uint256 value, uint256 nonce, uint256 deadline, uint8 v, bytes32 r, bytes32 s) sharesPermit, uint256 referralFeePct, address referralFeeRecipient, uint256 deadline)": {
         "intent": "Move to another vault",
+        "interpolatedIntent": "Move to another vault with {#.referralFeePct} referral fee",
         "fields": [
           {
             "label": "From vault",
@@ -152,7 +154,7 @@
             "path": "#.destVault",
             "visible": "always"
           },
-          { "label": "Amount (base units)", "format": "raw", "path": "#.assetsWithdrawn", "visible": { "ifNotIn": ["0"] } },
+          { "label": "Base units, with fee", "format": "raw", "path": "#.assetsWithdrawn", "visible": { "ifNotIn": ["0"] } },
           {
             "label": "Shares to move",
             "format": "tokenAmount",
@@ -165,7 +167,7 @@
             "format": "unit",
             "params": { "base": "%", "decimals": 16 },
             "path": "#.referralFeePct",
-            "visible": { "ifNotIn": ["0"] }
+            "visible": "always"
           },
           {
             "label": "Fee recipient",
