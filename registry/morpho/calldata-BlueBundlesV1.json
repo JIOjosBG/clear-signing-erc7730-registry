@@ -226,7 +226,7 @@
             }
           },
           {
-            "label": "Amount to borrow",
+            "label": "Borrow before fees",
             "format": "tokenAmount",
             "params": {
               "tokenPath": "#.marketParams.loanToken"
@@ -237,6 +237,25 @@
                 "0"
               ]
             }
+          },
+          {
+            "label": "Liquidity moved in",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "#.marketParams.loanToken"
+            },
+            "path": "#.reallocations.[].assets",
+            "visible": "always"
+          },
+          {
+            "label": "Liquidity penalty",
+            "format": "unit",
+            "params": {
+              "base": "%",
+              "decimals": 16
+            },
+            "path": "#.reallocations.[].penalty",
+            "visible": "always"
           },
           {
             "label": "Max resulting LTV",
@@ -336,8 +355,33 @@
             "visible": "never"
           },
           {
-            "label": "Reallocations",
-            "path": "#.reallocations",
+            "label": "Reallocation vault",
+            "path": "#.reallocations.[].vault",
+            "visible": "never"
+          },
+          {
+            "label": "Reallocation adapter",
+            "path": "#.reallocations.[].adapter",
+            "visible": "never"
+          },
+          {
+            "label": "Reallocation market",
+            "path": "#.reallocations.[].marketParams",
+            "visible": "never"
+          },
+          {
+            "label": "From idle",
+            "path": "#.reallocations.[].fromIdle",
+            "visible": "never"
+          },
+          {
+            "label": "Source adapter",
+            "path": "#.reallocations.[].sourceAdapter",
+            "visible": "never"
+          },
+          {
+            "label": "Source market",
+            "path": "#.reallocations.[].sourceMarketParams",
             "visible": "never"
           }
         ]
@@ -597,7 +641,7 @@
         "intent": "Withdraw from Morpho market",
         "fields": [
           {
-            "label": "Amount to withdraw",
+            "label": "Withdraw before fees",
             "format": "tokenAmount",
             "params": {
               "tokenPath": "#.marketParams.loanToken"
@@ -628,6 +672,25 @@
               ]
             },
             "path": "#.marketParams.loanToken",
+            "visible": "always"
+          },
+          {
+            "label": "Liquidity moved in",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "#.marketParams.loanToken"
+            },
+            "path": "#.reallocations.[].assets",
+            "visible": "always"
+          },
+          {
+            "label": "Liquidity penalty",
+            "format": "unit",
+            "params": {
+              "base": "%",
+              "decimals": 16
+            },
+            "path": "#.reallocations.[].penalty",
             "visible": "always"
           },
           {
@@ -714,15 +777,40 @@
             "visible": "never"
           },
           {
-            "label": "Reallocations",
-            "path": "#.reallocations",
+            "label": "Reallocation vault",
+            "path": "#.reallocations.[].vault",
+            "visible": "never"
+          },
+          {
+            "label": "Reallocation adapter",
+            "path": "#.reallocations.[].adapter",
+            "visible": "never"
+          },
+          {
+            "label": "Reallocation market",
+            "path": "#.reallocations.[].marketParams",
+            "visible": "never"
+          },
+          {
+            "label": "From idle",
+            "path": "#.reallocations.[].fromIdle",
+            "visible": "never"
+          },
+          {
+            "label": "Source adapter",
+            "path": "#.reallocations.[].sourceAdapter",
+            "visible": "never"
+          },
+          {
+            "label": "Source market",
+            "path": "#.reallocations.[].sourceMarketParams",
             "visible": "never"
           }
         ]
       },
       "blueBundlesV1MigrateBorrowPosition((address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) sourceMarketParams, (address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) destMarketParams, uint256 maxLtv, ((uint8 v, bytes32 r, bytes32 s) signature, uint256 nonce, uint256 deadline) signedAuthorization, (address vault, address adapter, (address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) marketParams, bool fromIdle, address sourceAdapter, (address loanToken, address collateralToken, address oracle, address irm, uint256 lltv) sourceMarketParams, uint128 assets, uint64 penalty)[] reallocations, uint256 referralFeePct, address referralFeeRecipient, uint256 deadline)": {
-        "intent": "Move borrow position",
-        "interpolatedIntent": "Move borrow position from {#.sourceMarketParams.lltv} to {#.destMarketParams.lltv} liquidation LTV",
+        "intent": "Move full borrow position",
+        "interpolatedIntent": "Move full borrow position from {#.sourceMarketParams.lltv} to {#.destMarketParams.lltv} liquidation LTV",
         "fields": [
           {
             "label": "Collateral token",
@@ -775,6 +863,36 @@
               ]
             },
             "path": "#.destMarketParams.oracle",
+            "visible": "always"
+          },
+          {
+            "label": "New rate model",
+            "format": "addressName",
+            "params": {
+              "types": [
+                "contract"
+              ]
+            },
+            "path": "#.destMarketParams.irm",
+            "visible": "always"
+          },
+          {
+            "label": "Liquidity moved in",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "#.sourceMarketParams.loanToken"
+            },
+            "path": "#.reallocations.[].assets",
+            "visible": "always"
+          },
+          {
+            "label": "Liquidity penalty",
+            "format": "unit",
+            "params": {
+              "base": "%",
+              "decimals": 16
+            },
+            "path": "#.reallocations.[].penalty",
             "visible": "always"
           },
           {
@@ -865,11 +983,6 @@
             "visible": "never"
           },
           {
-            "label": "New rate model",
-            "path": "#.destMarketParams.irm",
-            "visible": "never"
-          },
-          {
             "label": "Auth signature",
             "path": "#.signedAuthorization.signature",
             "visible": "never"
@@ -880,8 +993,33 @@
             "visible": "never"
           },
           {
-            "label": "Reallocations",
-            "path": "#.reallocations",
+            "label": "Reallocation vault",
+            "path": "#.reallocations.[].vault",
+            "visible": "never"
+          },
+          {
+            "label": "Reallocation adapter",
+            "path": "#.reallocations.[].adapter",
+            "visible": "never"
+          },
+          {
+            "label": "Reallocation market",
+            "path": "#.reallocations.[].marketParams",
+            "visible": "never"
+          },
+          {
+            "label": "From idle",
+            "path": "#.reallocations.[].fromIdle",
+            "visible": "never"
+          },
+          {
+            "label": "Source adapter",
+            "path": "#.reallocations.[].sourceAdapter",
+            "visible": "never"
+          },
+          {
+            "label": "Source market",
+            "path": "#.reallocations.[].sourceMarketParams",
             "visible": "never"
           }
         ]
