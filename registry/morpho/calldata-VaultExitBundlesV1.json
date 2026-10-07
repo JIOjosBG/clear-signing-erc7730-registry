@@ -102,7 +102,7 @@
         ]
       },
       "vaultExitBundlesV1ForceWithdrawVaultV2(address vault, address adapter, uint256 exitAssets, uint256 minSharePriceE27, (uint256 value, uint256 nonce, uint256 deadline, uint8 v, bytes32 r, bytes32 s) sharesPermit, uint256 referralFeePct, address referralFeeRecipient, uint256 deadline)": {
-        "intent": "Force withdraw from vault",
+        "intent": "Force withdraw, may pay a penalty",
         "fields": [
           {
             "label": "Vault",
