@@ -48,11 +48,7 @@
         "format": "tokenAmount",
         "params": { "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"] }
       },
-      "_minAmountOut": {
-        "label": "Minimum Amount to receive",
-        "format": "tokenAmount",
-        "params": { "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"] }
-      }
+      "_minAmountOut": { "label": "Minimum to Receive", "format": "amount" }
     },
     "formats": {
       "swapTokensMultipleV3ERC20ToERC20(bytes32 _transactionId, string _integrator, string _referrer, address _receiver, uint256 _minAmountOut, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData)": {
@@ -61,10 +57,13 @@
         "interpolatedIntent": "Swap {_swapData.[0].fromAmount} for at least {_minAmountOut}, sent to {_receiver}",
         "fields": [
           {
-            "path": "_swapData.[0].fromAmount",
+            "path": "_swapData.[].fromAmount",
             "label": "Amount to Send",
             "format": "tokenAmount",
-            "params": { "tokenPath": "_swapData.[0].sendingAssetId" },
+            "params": {
+              "tokenPath": "_swapData.[].sendingAssetId",
+              "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
+            },
             "visible": "always"
           },
           {
@@ -96,10 +95,13 @@
         "interpolatedIntent": "Swap {_swapData.[0].fromAmount} for at least {_minAmountOut}, sent to {_receiver}",
         "fields": [
           {
-            "path": "_swapData.[0].fromAmount",
+            "path": "_swapData.[].fromAmount",
             "label": "Amount to Send",
             "format": "tokenAmount",
-            "params": { "tokenPath": "_swapData.[0].sendingAssetId" },
+            "params": {
+              "tokenPath": "_swapData.[].sendingAssetId",
+              "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
+            },
             "visible": "always"
           },
           { "path": "_minAmountOut", "$ref": "$.display.definitions._minAmountOut", "visible": "always" },
@@ -244,12 +246,16 @@
         "interpolatedIntent": "Swap {_swapData.[0].fromAmount} for at least {_minAmount}, sent to {_receiver}",
         "fields": [
           {
-            "path": "_swapData.[0].fromAmount",
+            "path": "_swapData.[].fromAmount",
             "label": "Amount to Send",
             "format": "tokenAmount",
-            "params": { "tokenPath": "_swapData.[0].sendingAssetId" },
+            "params": {
+              "tokenPath": "_swapData.[].sendingAssetId",
+              "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
+            },
             "visible": "always"
           },
+          { "path": "@.value", "label": "Native Value Sent", "format": "amount", "visible": { "ifNotIn": [0] } },
           {
             "path": "_minAmount",
             "label": "Minimum to Receive",
@@ -273,17 +279,17 @@
           { "label": "Swap Data Requires Deposit", "path": "_swapData.[].requiresDeposit", "visible": "never" }
         ]
       },
-      "swapAndStartBridgeTokensViaAcrossV4((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (bytes32,bytes32,bytes32,bytes32,uint256,uint128,bytes32,uint32,uint32,uint32,bytes) _acrossData)": {
+      "swapAndStartBridgeTokensViaAcrossV4((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (bytes32 receiverAddress, bytes32 refundAddress, bytes32 sendingAssetId, bytes32 receivingAssetId, uint256 outputAmount, uint128 outputAmountMultiplier, bytes32 exclusiveRelayer, uint32 quoteTimestamp, uint32 fillDeadline, uint32 exclusivityParameter, bytes message) _acrossData)": {
         "$id": "swapAndStartBridgeTokensViaAcrossV4",
-        "intent": "Swap and Bridge",
-        "interpolatedIntent": "Bridge {_swapData.[0].fromAmount} to {_bridgeData.receiver} on {_bridgeData.destinationChainId}",
+        "intent": "Swap and bridge via Across",
+        "interpolatedIntent": "Swap {_swapData.[0].fromAmount}, bridge at least {_bridgeData.minAmount} to {_acrossData.receiverAddress.[12:32]} on {_bridgeData.destinationChainId}",
         "fields": [
           {
-            "path": "_swapData.[0].fromAmount",
+            "path": "_swapData.[].fromAmount",
             "label": "Amount to Send",
             "format": "tokenAmount",
             "params": {
-              "tokenPath": "_swapData.[0].sendingAssetId",
+              "tokenPath": "_swapData.[].sendingAssetId",
               "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
             },
             "visible": "always"
@@ -306,31 +312,66 @@
             "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
             "visible": "always"
           },
-          { "path": "_bridgeData.bridge", "label": "Bridge", "format": "raw", "visible": "always" },
+          {
+            "path": "_acrossData.outputAmountMultiplier",
+            "label": "Output Ratio",
+            "format": "unit",
+            "params": { "base": "%", "decimals": 16 },
+            "visible": "always"
+          },
+          {
+            "path": "_acrossData.receivingAssetId.[12:32]",
+            "label": "Token Received",
+            "format": "addressName",
+            "params": { "types": ["token"], "sources": ["local"] },
+            "visible": "always"
+          },
+          {
+            "path": "_acrossData.receiverAddress.[12:32]",
+            "label": "Bridge Recipient",
+            "format": "addressName",
+            "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
+            "visible": "always"
+          },
+          { "path": "_bridgeData.hasDestinationCall", "label": "Destination Call", "format": "raw", "visible": "always" },
+          {
+            "path": "_acrossData.refundAddress.[12:32]",
+            "label": "Refund Address",
+            "format": "addressName",
+            "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
+            "visible": "optional"
+          },
+          { "label": "Facet Data Sending Asset Id", "path": "_acrossData.sendingAssetId", "visible": "never" },
+          { "label": "Facet Data Output Amount", "path": "_acrossData.outputAmount", "visible": "never" },
+          { "label": "Facet Data Exclusive Relayer", "path": "_acrossData.exclusiveRelayer", "visible": "never" },
+          { "label": "Facet Data Quote Timestamp", "path": "_acrossData.quoteTimestamp", "visible": "never" },
+          { "label": "Facet Data Fill Deadline", "path": "_acrossData.fillDeadline", "visible": "never" },
+          { "label": "Facet Data Exclusivity Parameter", "path": "_acrossData.exclusivityParameter", "visible": "never" },
+          { "label": "Facet Data Message", "path": "_acrossData.message", "visible": "never" },
+          { "path": "@.value", "label": "Native Value Sent", "format": "amount", "visible": { "ifNotIn": [0] } },
+          { "label": "Bridge", "path": "_bridgeData.bridge", "visible": "never" },
           { "label": "Transaction Id", "path": "_bridgeData.transactionId", "visible": "never" },
           { "label": "Integrator", "path": "_bridgeData.integrator", "visible": "never" },
           { "label": "Referrer", "path": "_bridgeData.referrer", "visible": "never" },
           { "label": "Has Source Swaps", "path": "_bridgeData.hasSourceSwaps", "visible": "never" },
-          { "label": "Has Destination Call", "path": "_bridgeData.hasDestinationCall", "visible": "never" },
           { "label": "Swap Data Call Data", "path": "_swapData.[].callData", "visible": "never" },
           { "label": "Swap Data Requires Deposit", "path": "_swapData.[].requiresDeposit", "visible": "never" },
           { "label": "Swap Data Approve To", "path": "_swapData.[].approveTo", "visible": "never" },
           { "label": "Swap Data Call To", "path": "_swapData.[].callTo", "visible": "never" },
-          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" },
-          { "label": "Facet Data", "path": "_acrossData", "visible": "never" }
+          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" }
         ]
       },
-      "swapAndStartBridgeTokensViaPolymerCCTP((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (uint256,uint256,bytes32,bytes32,uint32,address,bytes) _polymerData)": {
+      "swapAndStartBridgeTokensViaPolymerCCTP((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (uint256 polymerTokenFee, uint256 maxCCTPFee, bytes32 nonEVMReceiver, bytes32 solanaReceiverATA, uint32 minFinalityThreshold, address refundRecipient, bytes hookData) _polymerData)": {
         "$id": "swapAndStartBridgeTokensViaPolymerCCTP",
-        "intent": "Swap and Bridge",
-        "interpolatedIntent": "Bridge {_swapData.[0].fromAmount} to {_bridgeData.receiver} on {_bridgeData.destinationChainId}",
+        "intent": "Swap and bridge via Polymer CCTP",
+        "interpolatedIntent": "Swap {_swapData.[0].fromAmount}, bridge at least {_bridgeData.minAmount} to {_bridgeData.receiver} on {_bridgeData.destinationChainId}",
         "fields": [
           {
-            "path": "_swapData.[0].fromAmount",
+            "path": "_swapData.[].fromAmount",
             "label": "Amount to Send",
             "format": "tokenAmount",
             "params": {
-              "tokenPath": "_swapData.[0].sendingAssetId",
+              "tokenPath": "_swapData.[].sendingAssetId",
               "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
             },
             "visible": "always"
@@ -353,7 +394,44 @@
             "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
             "visible": "always"
           },
-          { "path": "_bridgeData.bridge", "label": "Bridge", "format": "raw", "visible": "always" },
+          {
+            "path": "_polymerData.polymerTokenFee",
+            "label": "Polymer Fee",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "_bridgeData.sendingAssetId",
+              "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
+            },
+            "visible": "always"
+          },
+          {
+            "path": "_polymerData.maxCCTPFee",
+            "label": "Max Destination Fee (0 = no limit)",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "_bridgeData.sendingAssetId",
+              "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
+            },
+            "visible": "always"
+          },
+          {
+            "path": "_polymerData.refundRecipient",
+            "label": "Refund Recipient",
+            "format": "addressName",
+            "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
+            "visible": "always"
+          },
+          {
+            "path": "_polymerData.nonEVMReceiver",
+            "label": "Non-EVM Recipient",
+            "format": "raw",
+            "visible": { "ifNotIn": ["0x0000000000000000000000000000000000000000000000000000000000000000"] }
+          },
+          { "label": "Facet Data Solana Receiver ATA", "path": "_polymerData.solanaReceiverATA", "visible": "never" },
+          { "label": "Facet Data Min Finality Threshold", "path": "_polymerData.minFinalityThreshold", "visible": "never" },
+          { "label": "Facet Data Hook Data", "path": "_polymerData.hookData", "visible": "never" },
+          { "path": "@.value", "label": "Native Value Sent", "format": "amount", "visible": { "ifNotIn": [0] } },
+          { "label": "Bridge", "path": "_bridgeData.bridge", "visible": "never" },
           { "label": "Transaction Id", "path": "_bridgeData.transactionId", "visible": "never" },
           { "label": "Integrator", "path": "_bridgeData.integrator", "visible": "never" },
           { "label": "Referrer", "path": "_bridgeData.referrer", "visible": "never" },
@@ -363,21 +441,20 @@
           { "label": "Swap Data Requires Deposit", "path": "_swapData.[].requiresDeposit", "visible": "never" },
           { "label": "Swap Data Approve To", "path": "_swapData.[].approveTo", "visible": "never" },
           { "label": "Swap Data Call To", "path": "_swapData.[].callTo", "visible": "never" },
-          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" },
-          { "label": "Facet Data", "path": "_polymerData", "visible": "never" }
+          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" }
         ]
       },
-      "swapAndStartBridgeTokensViaLayerSwap((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (bytes32,address,address,bytes32,bytes,uint256) _layerSwapData)": {
+      "swapAndStartBridgeTokensViaLayerSwap((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (bytes32 requestId, address depositoryReceiver, address refundRecipient, bytes32 nonEVMReceiver, bytes signature, uint256 deadline) _layerSwapData)": {
         "$id": "swapAndStartBridgeTokensViaLayerSwap",
-        "intent": "Swap and Bridge",
-        "interpolatedIntent": "Bridge {_swapData.[0].fromAmount} to {_bridgeData.receiver} on {_bridgeData.destinationChainId}",
+        "intent": "Swap and bridge via LayerSwap",
+        "interpolatedIntent": "Swap {_swapData.[0].fromAmount}, bridge at least {_bridgeData.minAmount} to {_bridgeData.receiver} on {_bridgeData.destinationChainId}",
         "fields": [
           {
-            "path": "_swapData.[0].fromAmount",
+            "path": "_swapData.[].fromAmount",
             "label": "Amount to Send",
             "format": "tokenAmount",
             "params": {
-              "tokenPath": "_swapData.[0].sendingAssetId",
+              "tokenPath": "_swapData.[].sendingAssetId",
               "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
             },
             "visible": "always"
@@ -400,7 +477,25 @@
             "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
             "visible": "always"
           },
-          { "path": "_bridgeData.bridge", "label": "Bridge", "format": "raw", "visible": "always" },
+          {
+            "path": "_layerSwapData.refundRecipient",
+            "label": "Refund Recipient",
+            "format": "addressName",
+            "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
+            "visible": "optional"
+          },
+          {
+            "path": "_layerSwapData.nonEVMReceiver",
+            "label": "Non-EVM Recipient",
+            "format": "raw",
+            "visible": { "ifNotIn": ["0x0000000000000000000000000000000000000000000000000000000000000000"] }
+          },
+          { "label": "Facet Data Request Id", "path": "_layerSwapData.requestId", "visible": "never" },
+          { "label": "Facet Data Depository Receiver", "path": "_layerSwapData.depositoryReceiver", "visible": "never" },
+          { "label": "Facet Data Signature", "path": "_layerSwapData.signature", "visible": "never" },
+          { "label": "Facet Data Deadline", "path": "_layerSwapData.deadline", "visible": "never" },
+          { "path": "@.value", "label": "Native Value Sent", "format": "amount", "visible": { "ifNotIn": [0] } },
+          { "label": "Bridge", "path": "_bridgeData.bridge", "visible": "never" },
           { "label": "Transaction Id", "path": "_bridgeData.transactionId", "visible": "never" },
           { "label": "Integrator", "path": "_bridgeData.integrator", "visible": "never" },
           { "label": "Referrer", "path": "_bridgeData.referrer", "visible": "never" },
@@ -410,21 +505,20 @@
           { "label": "Swap Data Requires Deposit", "path": "_swapData.[].requiresDeposit", "visible": "never" },
           { "label": "Swap Data Approve To", "path": "_swapData.[].approveTo", "visible": "never" },
           { "label": "Swap Data Call To", "path": "_swapData.[].callTo", "visible": "never" },
-          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" },
-          { "label": "Facet Data", "path": "_layerSwapData", "visible": "never" }
+          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" }
         ]
       },
-      "swapAndStartBridgeTokensViaCelerCircleBridge((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (uint256,uint32) _celerCircleData)": {
+      "swapAndStartBridgeTokensViaCelerCircleBridge((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (uint256 maxFee, uint32 minFinalityThreshold) _celerCircleData)": {
         "$id": "swapAndStartBridgeTokensViaCelerCircleBridge",
-        "intent": "Swap and Bridge",
-        "interpolatedIntent": "Bridge {_swapData.[0].fromAmount} to {_bridgeData.receiver} on {_bridgeData.destinationChainId}",
+        "intent": "Swap and bridge via Celer Circle",
+        "interpolatedIntent": "Swap {_swapData.[0].fromAmount}, bridge at least {_bridgeData.minAmount} to {_bridgeData.receiver} on {_bridgeData.destinationChainId}",
         "fields": [
           {
-            "path": "_swapData.[0].fromAmount",
+            "path": "_swapData.[].fromAmount",
             "label": "Amount to Send",
             "format": "tokenAmount",
             "params": {
-              "tokenPath": "_swapData.[0].sendingAssetId",
+              "tokenPath": "_swapData.[].sendingAssetId",
               "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
             },
             "visible": "always"
@@ -447,7 +541,19 @@
             "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
             "visible": "always"
           },
-          { "path": "_bridgeData.bridge", "label": "Bridge", "format": "raw", "visible": "always" },
+          {
+            "path": "_celerCircleData.maxFee",
+            "label": "Max Destination Fee (0 = no limit)",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "_bridgeData.sendingAssetId",
+              "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
+            },
+            "visible": "always"
+          },
+          { "label": "Facet Data Min Finality Threshold", "path": "_celerCircleData.minFinalityThreshold", "visible": "never" },
+          { "path": "@.value", "label": "Native Value Sent", "format": "amount", "visible": { "ifNotIn": [0] } },
+          { "label": "Bridge", "path": "_bridgeData.bridge", "visible": "never" },
           { "label": "Transaction Id", "path": "_bridgeData.transactionId", "visible": "never" },
           { "label": "Integrator", "path": "_bridgeData.integrator", "visible": "never" },
           { "label": "Referrer", "path": "_bridgeData.referrer", "visible": "never" },
@@ -457,21 +563,20 @@
           { "label": "Swap Data Requires Deposit", "path": "_swapData.[].requiresDeposit", "visible": "never" },
           { "label": "Swap Data Approve To", "path": "_swapData.[].approveTo", "visible": "never" },
           { "label": "Swap Data Call To", "path": "_swapData.[].callTo", "visible": "never" },
-          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" },
-          { "label": "Facet Data", "path": "_celerCircleData", "visible": "never" }
+          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" }
         ]
       },
-      "swapAndStartBridgeTokensViaMayan((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (bytes32,address,bytes,address,bytes,address,uint256,address,uint256) _mayanData)": {
+      "swapAndStartBridgeTokensViaMayan((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (bytes32 nonEVMReceiver, address mayanProtocol, bytes protocolData, address swapProtocol, bytes swapData, address middleToken, uint256 minMiddleAmount, address refundRecipient, uint256 mayanAmountIn) _mayanData)": {
         "$id": "swapAndStartBridgeTokensViaMayan",
-        "intent": "Swap and Bridge",
-        "interpolatedIntent": "Bridge {_swapData.[0].fromAmount} to {_bridgeData.receiver} on {_bridgeData.destinationChainId}",
+        "intent": "Swap and bridge via Mayan",
+        "interpolatedIntent": "Swap {_swapData.[0].fromAmount}, bridge {_mayanData.mayanAmountIn} to {_bridgeData.receiver} on {_bridgeData.destinationChainId}",
         "fields": [
           {
-            "path": "_swapData.[0].fromAmount",
+            "path": "_swapData.[].fromAmount",
             "label": "Amount to Send",
             "format": "tokenAmount",
             "params": {
-              "tokenPath": "_swapData.[0].sendingAssetId",
+              "tokenPath": "_swapData.[].sendingAssetId",
               "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
             },
             "visible": "always"
@@ -494,7 +599,37 @@
             "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
             "visible": "always"
           },
-          { "path": "_bridgeData.bridge", "label": "Bridge", "format": "raw", "visible": "always" },
+          {
+            "path": "_mayanData.mayanAmountIn",
+            "label": "Amount to Bridge",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "_bridgeData.sendingAssetId",
+              "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
+            },
+            "visible": "always"
+          },
+          {
+            "path": "_mayanData.refundRecipient",
+            "label": "Refund Recipient",
+            "format": "addressName",
+            "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
+            "visible": "always"
+          },
+          {
+            "path": "_mayanData.nonEVMReceiver",
+            "label": "Non-EVM Recipient",
+            "format": "raw",
+            "visible": { "ifNotIn": ["0x0000000000000000000000000000000000000000000000000000000000000000"] }
+          },
+          { "label": "Facet Data Mayan Protocol", "path": "_mayanData.mayanProtocol", "visible": "never" },
+          { "label": "Facet Data Protocol Data", "path": "_mayanData.protocolData", "visible": "never" },
+          { "label": "Facet Data Swap Protocol", "path": "_mayanData.swapProtocol", "visible": "never" },
+          { "label": "Facet Data Swap Data", "path": "_mayanData.swapData", "visible": "never" },
+          { "label": "Facet Data Middle Token", "path": "_mayanData.middleToken", "visible": "never" },
+          { "label": "Facet Data Min Middle Amount", "path": "_mayanData.minMiddleAmount", "visible": "never" },
+          { "path": "@.value", "label": "Native Value Sent", "format": "amount", "visible": { "ifNotIn": [0] } },
+          { "label": "Bridge", "path": "_bridgeData.bridge", "visible": "never" },
           { "label": "Transaction Id", "path": "_bridgeData.transactionId", "visible": "never" },
           { "label": "Integrator", "path": "_bridgeData.integrator", "visible": "never" },
           { "label": "Referrer", "path": "_bridgeData.referrer", "visible": "never" },
@@ -504,21 +639,20 @@
           { "label": "Swap Data Requires Deposit", "path": "_swapData.[].requiresDeposit", "visible": "never" },
           { "label": "Swap Data Approve To", "path": "_swapData.[].approveTo", "visible": "never" },
           { "label": "Swap Data Call To", "path": "_swapData.[].callTo", "visible": "never" },
-          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" },
-          { "label": "Facet Data", "path": "_mayanData", "visible": "never" }
+          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" }
         ]
       },
-      "swapAndStartBridgeTokensViaGlacis((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (bytes32,address,uint256,bytes32) _glacisData)": {
+      "swapAndStartBridgeTokensViaGlacis((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (bytes32 receiverAddress, address refundAddress, uint256 nativeFee, bytes32 outputToken) _glacisData)": {
         "$id": "swapAndStartBridgeTokensViaGlacis",
-        "intent": "Swap and Bridge",
-        "interpolatedIntent": "Bridge {_swapData.[0].fromAmount} to {_bridgeData.receiver} on {_bridgeData.destinationChainId}",
+        "intent": "Swap and bridge via Glacis",
+        "interpolatedIntent": "Swap {_swapData.[0].fromAmount}, bridge at least {_bridgeData.minAmount} to {_bridgeData.receiver} on {_bridgeData.destinationChainId}",
         "fields": [
           {
-            "path": "_swapData.[0].fromAmount",
+            "path": "_swapData.[].fromAmount",
             "label": "Amount to Send",
             "format": "tokenAmount",
             "params": {
-              "tokenPath": "_swapData.[0].sendingAssetId",
+              "tokenPath": "_swapData.[].sendingAssetId",
               "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
             },
             "visible": "always"
@@ -541,7 +675,18 @@
             "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
             "visible": "always"
           },
-          { "path": "_bridgeData.bridge", "label": "Bridge", "format": "raw", "visible": "always" },
+          {
+            "path": "_glacisData.refundAddress",
+            "label": "Refund Address",
+            "format": "addressName",
+            "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
+            "visible": "optional"
+          },
+          { "label": "Facet Data Receiver Address", "path": "_glacisData.receiverAddress", "visible": "never" },
+          { "label": "Facet Data Native Fee", "path": "_glacisData.nativeFee", "visible": "never" },
+          { "label": "Facet Data Output Token", "path": "_glacisData.outputToken", "visible": "never" },
+          { "path": "@.value", "label": "Native Value Sent", "format": "amount", "visible": { "ifNotIn": [0] } },
+          { "label": "Bridge", "path": "_bridgeData.bridge", "visible": "never" },
           { "label": "Transaction Id", "path": "_bridgeData.transactionId", "visible": "never" },
           { "label": "Integrator", "path": "_bridgeData.integrator", "visible": "never" },
           { "label": "Referrer", "path": "_bridgeData.referrer", "visible": "never" },
@@ -551,21 +696,20 @@
           { "label": "Swap Data Requires Deposit", "path": "_swapData.[].requiresDeposit", "visible": "never" },
           { "label": "Swap Data Approve To", "path": "_swapData.[].approveTo", "visible": "never" },
           { "label": "Swap Data Call To", "path": "_swapData.[].callTo", "visible": "never" },
-          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" },
-          { "label": "Facet Data", "path": "_glacisData", "visible": "never" }
+          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" }
         ]
       },
-      "swapAndStartBridgeTokensViaStargate((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (uint16,(uint32,bytes32,uint256,uint256,bytes,bytes,bytes),(uint256,uint256),address) _stargateData)": {
+      "swapAndStartBridgeTokensViaStargate((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (uint16 assetId, (uint32 dstEid, bytes32 to, uint256 amountLD, uint256 minAmountLD, bytes extraOptions, bytes composeMsg, bytes oftCmd) sendParams, (uint256 nativeFee, uint256 lzTokenFee) fee, address refundAddress) _stargateData)": {
         "$id": "swapAndStartBridgeTokensViaStargate",
-        "intent": "Swap and Bridge",
-        "interpolatedIntent": "Bridge {_swapData.[0].fromAmount} to {_bridgeData.receiver} on {_bridgeData.destinationChainId}",
+        "intent": "Swap and bridge via Stargate",
+        "interpolatedIntent": "Swap {_swapData.[0].fromAmount}, bridge at least {_bridgeData.minAmount} to {_stargateData.sendParams.to.[12:32]} on LayerZero endpoint {_stargateData.sendParams.dstEid}",
         "fields": [
           {
-            "path": "_swapData.[0].fromAmount",
+            "path": "_swapData.[].fromAmount",
             "label": "Amount to Send",
             "format": "tokenAmount",
             "params": {
-              "tokenPath": "_swapData.[0].sendingAssetId",
+              "tokenPath": "_swapData.[].sendingAssetId",
               "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
             },
             "visible": "always"
@@ -588,31 +732,62 @@
             "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
             "visible": "always"
           },
-          { "path": "_bridgeData.bridge", "label": "Bridge", "format": "raw", "visible": "always" },
+          {
+            "path": "_stargateData.sendParams.dstEid",
+            "label": "LayerZero Destination Endpoint",
+            "format": "raw",
+            "visible": "always"
+          },
+          {
+            "path": "_stargateData.sendParams.to.[12:32]",
+            "label": "Bridge Recipient",
+            "format": "addressName",
+            "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
+            "visible": "always"
+          },
+          {
+            "path": "_stargateData.sendParams.minAmountLD",
+            "label": "Minimum Amount Received",
+            "format": "tokenAmount",
+            "params": {
+              "tokenPath": "_bridgeData.sendingAssetId",
+              "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
+            },
+            "visible": "always"
+          },
+          { "path": "_bridgeData.hasDestinationCall", "label": "Destination Call", "format": "raw", "visible": "always" },
+          { "label": "Facet Data Asset Id", "path": "_stargateData.assetId", "visible": "never" },
+          { "label": "Facet Data Amount LD", "path": "_stargateData.sendParams.amountLD", "visible": "never" },
+          { "label": "Facet Data Extra Options", "path": "_stargateData.sendParams.extraOptions", "visible": "never" },
+          { "label": "Facet Data Compose Message", "path": "_stargateData.sendParams.composeMsg", "visible": "never" },
+          { "label": "Facet Data OFT Command", "path": "_stargateData.sendParams.oftCmd", "visible": "never" },
+          { "label": "Facet Data Native Fee", "path": "_stargateData.fee.nativeFee", "visible": "never" },
+          { "label": "Facet Data LayerZero Token Fee", "path": "_stargateData.fee.lzTokenFee", "visible": "never" },
+          { "label": "Facet Data Refund Address", "path": "_stargateData.refundAddress", "visible": "never" },
+          { "path": "@.value", "label": "Native Value Sent", "format": "amount", "visible": { "ifNotIn": [0] } },
+          { "label": "Bridge", "path": "_bridgeData.bridge", "visible": "never" },
           { "label": "Transaction Id", "path": "_bridgeData.transactionId", "visible": "never" },
           { "label": "Integrator", "path": "_bridgeData.integrator", "visible": "never" },
           { "label": "Referrer", "path": "_bridgeData.referrer", "visible": "never" },
           { "label": "Has Source Swaps", "path": "_bridgeData.hasSourceSwaps", "visible": "never" },
-          { "label": "Has Destination Call", "path": "_bridgeData.hasDestinationCall", "visible": "never" },
           { "label": "Swap Data Call Data", "path": "_swapData.[].callData", "visible": "never" },
           { "label": "Swap Data Requires Deposit", "path": "_swapData.[].requiresDeposit", "visible": "never" },
           { "label": "Swap Data Approve To", "path": "_swapData.[].approveTo", "visible": "never" },
           { "label": "Swap Data Call To", "path": "_swapData.[].callTo", "visible": "never" },
-          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" },
-          { "label": "Facet Data", "path": "_stargateData", "visible": "never" }
+          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" }
         ]
       },
-      "swapAndStartBridgeTokensViaRelayDepository((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (bytes32,address) _relayDepositoryData)": {
+      "swapAndStartBridgeTokensViaRelayDepository((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (bytes32 orderId, address depositorAddress) _relayDepositoryData)": {
         "$id": "swapAndStartBridgeTokensViaRelayDepository",
-        "intent": "Swap and Bridge",
-        "interpolatedIntent": "Bridge {_swapData.[0].fromAmount} to {_bridgeData.receiver} on {_bridgeData.destinationChainId}",
+        "intent": "Swap and bridge via Relay",
+        "interpolatedIntent": "Swap {_swapData.[0].fromAmount}, bridge at least {_bridgeData.minAmount} to {_bridgeData.receiver} on {_bridgeData.destinationChainId}",
         "fields": [
           {
-            "path": "_swapData.[0].fromAmount",
+            "path": "_swapData.[].fromAmount",
             "label": "Amount to Send",
             "format": "tokenAmount",
             "params": {
-              "tokenPath": "_swapData.[0].sendingAssetId",
+              "tokenPath": "_swapData.[].sendingAssetId",
               "nativeCurrencyAddress": ["$.metadata.constants.addressAsEth", "$.metadata.constants.addressAsNull"]
             },
             "visible": "always"
@@ -627,15 +802,23 @@
             },
             "visible": "always"
           },
-          { "path": "_bridgeData.destinationChainId", "label": "Destination Chain", "format": "chainId", "visible": "always" },
+          {
+            "path": "_bridgeData.destinationChainId",
+            "label": "Destination Chain (per Relay order)",
+            "format": "chainId",
+            "visible": "always"
+          },
           {
             "path": "_bridgeData.receiver",
-            "label": "Recipient",
+            "label": "Recipient (per Relay order)",
             "format": "addressName",
             "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
             "visible": "always"
           },
-          { "path": "_bridgeData.bridge", "label": "Bridge", "format": "raw", "visible": "always" },
+          { "label": "Facet Data Order Id", "path": "_relayDepositoryData.orderId", "visible": "never" },
+          { "label": "Facet Data Depositor Address", "path": "_relayDepositoryData.depositorAddress", "visible": "never" },
+          { "path": "@.value", "label": "Native Value Sent", "format": "amount", "visible": { "ifNotIn": [0] } },
+          { "label": "Bridge", "path": "_bridgeData.bridge", "visible": "never" },
           { "label": "Transaction Id", "path": "_bridgeData.transactionId", "visible": "never" },
           { "label": "Integrator", "path": "_bridgeData.integrator", "visible": "never" },
           { "label": "Referrer", "path": "_bridgeData.referrer", "visible": "never" },
@@ -645,8 +828,7 @@
           { "label": "Swap Data Requires Deposit", "path": "_swapData.[].requiresDeposit", "visible": "never" },
           { "label": "Swap Data Approve To", "path": "_swapData.[].approveTo", "visible": "never" },
           { "label": "Swap Data Call To", "path": "_swapData.[].callTo", "visible": "never" },
-          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" },
-          { "label": "Facet Data", "path": "_relayDepositoryData", "visible": "never" }
+          { "label": "Swap Data Receiving Asset Id", "path": "_swapData.[].receivingAssetId", "visible": "never" }
         ]
       }
     }
