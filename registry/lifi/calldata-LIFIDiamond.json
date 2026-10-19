@@ -39,7 +39,43 @@
       "addressAsEth": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
       "addressAsNull": "0x0000000000000000000000000000000000000000"
     },
-    "contractName": "LI.FI Service GmbH"
+    "contractName": "LI.FI Service GmbH",
+    "enums": {
+      "lifiChainId": {
+        "1": "Ethereum",
+        "10": "OP Mainnet",
+        "56": "BSC",
+        "100": "Gnosis",
+        "130": "Unichain",
+        "137": "Polygon",
+        "143": "Monad",
+        "146": "Sonic",
+        "324": "zkSync",
+        "480": "World Chain",
+        "999": "HyperEVM",
+        "1135": "Lisk",
+        "1868": "Soneium",
+        "2741": "Abstract",
+        "5000": "Mantle",
+        "8453": "Base",
+        "9745": "Plasma",
+        "34443": "Mode",
+        "42161": "Arbitrum One",
+        "42220": "Celo",
+        "43114": "Avalanche",
+        "57073": "Ink",
+        "59144": "Linea",
+        "80094": "Berachain",
+        "81457": "Blast",
+        "534352": "Scroll",
+        "747474": "Katana",
+        "728126428": "Tron",
+        "20000000000001": "Bitcoin",
+        "20000000000005": "Zcash",
+        "1151111081099710": "Solana",
+        "9270000000000000": "Sui"
+      }
+    }
   },
   "display": {
     "definitions": {
@@ -304,7 +340,13 @@
             },
             "visible": "always"
           },
-          { "path": "_bridgeData.destinationChainId", "label": "Destination Chain", "format": "chainId", "visible": "always" },
+          {
+            "path": "_bridgeData.destinationChainId",
+            "label": "Destination Chain",
+            "format": "enum",
+            "params": { "$ref": "$.metadata.enums.lifiChainId" },
+            "visible": "always"
+          },
           {
             "path": "_bridgeData.receiver",
             "label": "Recipient",
@@ -341,6 +383,7 @@
             "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
             "visible": "optional"
           },
+          { "path": "_acrossData.receiverAddress", "label": "Bridge Recipient (raw)", "format": "raw", "visible": "optional" },
           { "label": "Facet Data Sending Asset Id", "path": "_acrossData.sendingAssetId", "visible": "never" },
           { "label": "Facet Data Output Amount", "path": "_acrossData.outputAmount", "visible": "never" },
           { "label": "Facet Data Exclusive Relayer", "path": "_acrossData.exclusiveRelayer", "visible": "never" },
@@ -386,7 +429,13 @@
             },
             "visible": "always"
           },
-          { "path": "_bridgeData.destinationChainId", "label": "Destination Chain", "format": "chainId", "visible": "always" },
+          {
+            "path": "_bridgeData.destinationChainId",
+            "label": "Destination Chain",
+            "format": "enum",
+            "params": { "$ref": "$.metadata.enums.lifiChainId" },
+            "visible": "always"
+          },
           {
             "path": "_bridgeData.receiver",
             "label": "Recipient",
@@ -469,7 +518,13 @@
             },
             "visible": "always"
           },
-          { "path": "_bridgeData.destinationChainId", "label": "Destination Chain", "format": "chainId", "visible": "always" },
+          {
+            "path": "_bridgeData.destinationChainId",
+            "label": "Destination Chain",
+            "format": "enum",
+            "params": { "$ref": "$.metadata.enums.lifiChainId" },
+            "visible": "always"
+          },
           {
             "path": "_bridgeData.receiver",
             "label": "Recipient",
@@ -533,7 +588,13 @@
             },
             "visible": "always"
           },
-          { "path": "_bridgeData.destinationChainId", "label": "Destination Chain", "format": "chainId", "visible": "always" },
+          {
+            "path": "_bridgeData.destinationChainId",
+            "label": "Destination Chain",
+            "format": "enum",
+            "params": { "$ref": "$.metadata.enums.lifiChainId" },
+            "visible": "always"
+          },
           {
             "path": "_bridgeData.receiver",
             "label": "Recipient",
@@ -591,7 +652,13 @@
             },
             "visible": "always"
           },
-          { "path": "_bridgeData.destinationChainId", "label": "Destination Chain", "format": "chainId", "visible": "always" },
+          {
+            "path": "_bridgeData.destinationChainId",
+            "label": "Destination Chain",
+            "format": "enum",
+            "params": { "$ref": "$.metadata.enums.lifiChainId" },
+            "visible": "always"
+          },
           {
             "path": "_bridgeData.receiver",
             "label": "Recipient",
@@ -667,7 +734,13 @@
             },
             "visible": "always"
           },
-          { "path": "_bridgeData.destinationChainId", "label": "Destination Chain", "format": "chainId", "visible": "always" },
+          {
+            "path": "_bridgeData.destinationChainId",
+            "label": "Destination Chain",
+            "format": "enum",
+            "params": { "$ref": "$.metadata.enums.lifiChainId" },
+            "visible": "always"
+          },
           {
             "path": "_bridgeData.receiver",
             "label": "Recipient",
@@ -682,7 +755,7 @@
             "params": { "types": ["eoa", "contract"], "sources": ["local", "ens"] },
             "visible": "optional"
           },
-          { "label": "Facet Data Receiver Address", "path": "_glacisData.receiverAddress", "visible": "never" },
+          { "path": "_glacisData.receiverAddress", "label": "Bridge Recipient (raw)", "format": "raw", "visible": "optional" },
           { "label": "Facet Data Native Fee", "path": "_glacisData.nativeFee", "visible": "never" },
           { "label": "Facet Data Output Token", "path": "_glacisData.outputToken", "visible": "never" },
           { "path": "@.value", "label": "Native Value Sent", "format": "amount", "visible": { "ifNotIn": [0] } },
@@ -724,7 +797,13 @@
             },
             "visible": "always"
           },
-          { "path": "_bridgeData.destinationChainId", "label": "Destination Chain", "format": "chainId", "visible": "always" },
+          {
+            "path": "_bridgeData.destinationChainId",
+            "label": "Destination Chain",
+            "format": "enum",
+            "params": { "$ref": "$.metadata.enums.lifiChainId" },
+            "visible": "always"
+          },
           {
             "path": "_bridgeData.receiver",
             "label": "Recipient",
@@ -805,7 +884,8 @@
           {
             "path": "_bridgeData.destinationChainId",
             "label": "Destination Chain (per Relay order)",
-            "format": "chainId",
+            "format": "enum",
+            "params": { "$ref": "$.metadata.enums.lifiChainId" },
             "visible": "always"
           },
           {
