@@ -88,6 +88,15 @@
         "owner": "Safe{Wallet}",
         "fields": [{ "label": "Hash to approve", "value": "0x996844ff74a9f084f17b13a5b44d7c7a9e05ed4a5172afc0a1ffce7a89ddebef" }]
       }
+    },
+    {
+      "description": "Modify threshold - chain 1 (built calldata)",
+      "rawTx": "0x02f84d0107843b9aca008504a817c800830493e0943e5c63644e683549055b9be8653de26e0b4cd36e80a4694e80c30000000000000000000000000000000000000000000000000000000000000002c0",
+      "expected": {
+        "intent": "Modify threshold",
+        "owner": "Safe{Wallet}",
+        "fields": [{ "label": "New threshold", "value": "2" }]
+      }
     }
   ]
 }

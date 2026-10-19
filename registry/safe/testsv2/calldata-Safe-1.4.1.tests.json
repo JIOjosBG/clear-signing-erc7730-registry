@@ -70,6 +70,39 @@
         "owner": "Safe{Wallet}",
         "fields": [{ "label": "Hash to approve", "value": "0xd4047f2a622348685c3f28192efc168c88d19772bb662ec1d50fbf2463d71bac" }]
       }
+    },
+    {
+      "description": "Remove signer - chain 1 (built calldata)",
+      "rawTx": "0x02f88e0107843b9aca008504a817c800830493e09441675c099f32341bf84bfc5382af534df5c7461a80b864f8dc5dd90000000000000000000000000000000000000000000000000000000000000001000000000000000000000000cf3a2cf2bd4db9b35dc6d43aa2465e84d9c95d3e0000000000000000000000000000000000000000000000000000000000000001c0",
+      "expected": {
+        "intent": "Remove signer",
+        "owner": "Safe{Wallet}",
+        "fields": [
+          { "label": "Signer", "value": "0xcf3a2cf2bD4dB9B35dC6D43AA2465e84d9C95d3e" },
+          { "label": "New threshold", "value": "1" }
+        ]
+      }
+    },
+    {
+      "description": "Swap signer - chain 1 (built calldata)",
+      "rawTx": "0x02f88e0107843b9aca008504a817c800830493e09441675c099f32341bf84bfc5382af534df5c7461a80b864e318b52b0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000cf3a2cf2bd4db9b35dc6d43aa2465e84d9c95d3e000000000000000000000000ad497060d29a2c9151604d8a7d496fc91731e9c9c0",
+      "expected": {
+        "intent": "Swap signer",
+        "owner": "Safe{Wallet}",
+        "fields": [
+          { "label": "Old signer", "value": "0xcf3a2cf2bD4dB9B35dC6D43AA2465e84d9C95d3e" },
+          { "label": "New signer", "value": "0xad497060D29a2C9151604D8a7D496FC91731e9c9" }
+        ]
+      }
+    },
+    {
+      "description": "Modify threshold - chain 1 (built calldata)",
+      "rawTx": "0x02f84d0107843b9aca008504a817c800830493e09441675c099f32341bf84bfc5382af534df5c7461a80a4694e80c30000000000000000000000000000000000000000000000000000000000000002c0",
+      "expected": {
+        "intent": "Modify threshold",
+        "owner": "Safe{Wallet}",
+        "fields": [{ "label": "New threshold", "value": "2" }]
+      }
     }
   ]
 }
