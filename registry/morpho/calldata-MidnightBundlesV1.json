@@ -38,7 +38,25 @@
             "path": "#.offerFills.[0].offer.market.collateralParams.[].token",
             "visible": "always"
           },
-          { "label": "Collateral to take", "format": "raw", "path": "#.collateralWithdrawals.[].assets", "visible": "optional" },
+          {
+            "label": "Maturity",
+            "format": "date",
+            "params": { "encoding": "timestamp" },
+            "path": "#.offerFills.[0].offer.market.maturity",
+            "visible": "always"
+          },
+          {
+            "path": "#.collateralWithdrawals.[]",
+            "fields": [
+              {
+                "label": "Collateral index (order of Market collateral)",
+                "format": "raw",
+                "path": "collateralIndex",
+                "visible": "always"
+              },
+              { "label": "Collateral to take (base units)", "format": "raw", "path": "assets", "visible": "always" }
+            ]
+          },
           {
             "label": "Collateral to",
             "format": "addressName",
@@ -67,9 +85,14 @@
             "path": "#.deadline",
             "visible": { "ifNotIn": ["115792089237316195423570985008687907853269984665640564039457584007913129639935"] }
           },
-          { "label": "Account", "format": "addressName", "params": { "types": ["eoa", "wallet", "contract"] }, "path": "#.taker", "visible": "always" },
+          {
+            "label": "Account",
+            "format": "addressName",
+            "params": { "types": ["eoa", "wallet", "contract"] },
+            "path": "#.taker",
+            "visible": "always"
+          },
           { "label": "Loan token permit", "path": "#.loanTokenPermit", "visible": "never" },
-          { "label": "Collateral index", "path": "#.collateralWithdrawals.[].collateralIndex", "visible": "never" },
           { "label": "Offers", "path": "#.offerFills", "visible": "never" },
           { "label": "Max continuous fee", "path": "#.maxContinuousFee", "visible": "never" },
           { "label": "Reduce only", "path": "#.reduceOnly", "visible": "never" }
@@ -99,7 +122,25 @@
             "path": "#.offerFills.[0].offer.market.collateralParams.[].token",
             "visible": "always"
           },
-          { "label": "Collateral to take", "format": "raw", "path": "#.collateralWithdrawals.[].assets", "visible": "optional" },
+          {
+            "label": "Maturity",
+            "format": "date",
+            "params": { "encoding": "timestamp" },
+            "path": "#.offerFills.[0].offer.market.maturity",
+            "visible": "always"
+          },
+          {
+            "path": "#.collateralWithdrawals.[]",
+            "fields": [
+              {
+                "label": "Collateral index (order of Market collateral)",
+                "format": "raw",
+                "path": "collateralIndex",
+                "visible": "always"
+              },
+              { "label": "Collateral to take (base units)", "format": "raw", "path": "assets", "visible": "always" }
+            ]
+          },
           {
             "label": "Collateral to",
             "format": "addressName",
@@ -128,9 +169,14 @@
             "path": "#.deadline",
             "visible": { "ifNotIn": ["115792089237316195423570985008687907853269984665640564039457584007913129639935"] }
           },
-          { "label": "Account", "format": "addressName", "params": { "types": ["eoa", "wallet", "contract"] }, "path": "#.taker", "visible": "always" },
+          {
+            "label": "Account",
+            "format": "addressName",
+            "params": { "types": ["eoa", "wallet", "contract"] },
+            "path": "#.taker",
+            "visible": "always"
+          },
           { "label": "Loan token permit", "path": "#.loanTokenPermit", "visible": "never" },
-          { "label": "Collateral index", "path": "#.collateralWithdrawals.[].collateralIndex", "visible": "never" },
           { "label": "Offers", "path": "#.offerFills", "visible": "never" },
           { "label": "Max continuous fee", "path": "#.maxContinuousFee", "visible": "never" },
           { "label": "Reduce only", "path": "#.reduceOnly", "visible": "never" }
@@ -167,7 +213,25 @@
             "path": "#.offerFills.[0].offer.market.collateralParams.[].token",
             "visible": "always"
           },
-          { "label": "Collateral to supply", "format": "raw", "path": "#.collateralSupplies.[].assets", "visible": "optional" },
+          {
+            "label": "Maturity",
+            "format": "date",
+            "params": { "encoding": "timestamp" },
+            "path": "#.offerFills.[0].offer.market.maturity",
+            "visible": "always"
+          },
+          {
+            "path": "#.collateralSupplies.[]",
+            "fields": [
+              {
+                "label": "Collateral index (order of Market collateral)",
+                "format": "raw",
+                "path": "collateralIndex",
+                "visible": "always"
+              },
+              { "label": "Collateral to supply (base units)", "format": "raw", "path": "assets", "visible": "always" }
+            ]
+          },
           {
             "label": "Referral fee",
             "format": "unit",
@@ -189,8 +253,13 @@
             "path": "#.deadline",
             "visible": { "ifNotIn": ["115792089237316195423570985008687907853269984665640564039457584007913129639935"] }
           },
-          { "label": "Account", "format": "addressName", "params": { "types": ["eoa", "wallet", "contract"] }, "path": "#.taker", "visible": "always" },
-          { "label": "Collateral index", "path": "#.collateralSupplies.[].collateralIndex", "visible": "never" },
+          {
+            "label": "Account",
+            "format": "addressName",
+            "params": { "types": ["eoa", "wallet", "contract"] },
+            "path": "#.taker",
+            "visible": "always"
+          },
           { "label": "Collateral permit", "path": "#.collateralSupplies.[].permit", "visible": "never" },
           { "label": "Offers", "path": "#.offerFills", "visible": "never" },
           { "label": "Max continuous fee", "path": "#.maxContinuousFee", "visible": "never" },
@@ -228,7 +297,25 @@
             "path": "#.offerFills.[0].offer.market.collateralParams.[].token",
             "visible": "always"
           },
-          { "label": "Collateral to supply", "format": "raw", "path": "#.collateralSupplies.[].assets", "visible": "optional" },
+          {
+            "label": "Maturity",
+            "format": "date",
+            "params": { "encoding": "timestamp" },
+            "path": "#.offerFills.[0].offer.market.maturity",
+            "visible": "always"
+          },
+          {
+            "path": "#.collateralSupplies.[]",
+            "fields": [
+              {
+                "label": "Collateral index (order of Market collateral)",
+                "format": "raw",
+                "path": "collateralIndex",
+                "visible": "always"
+              },
+              { "label": "Collateral to supply (base units)", "format": "raw", "path": "assets", "visible": "always" }
+            ]
+          },
           {
             "label": "Referral fee",
             "format": "unit",
@@ -250,8 +337,13 @@
             "path": "#.deadline",
             "visible": { "ifNotIn": ["115792089237316195423570985008687907853269984665640564039457584007913129639935"] }
           },
-          { "label": "Account", "format": "addressName", "params": { "types": ["eoa", "wallet", "contract"] }, "path": "#.taker", "visible": "always" },
-          { "label": "Collateral index", "path": "#.collateralSupplies.[].collateralIndex", "visible": "never" },
+          {
+            "label": "Account",
+            "format": "addressName",
+            "params": { "types": ["eoa", "wallet", "contract"] },
+            "path": "#.taker",
+            "visible": "always"
+          },
           { "label": "Collateral permit", "path": "#.collateralSupplies.[].permit", "visible": "never" },
           { "label": "Offers", "path": "#.offerFills", "visible": "never" },
           { "label": "Max continuous fee", "path": "#.maxContinuousFee", "visible": "never" },
@@ -263,7 +355,7 @@
         "interpolatedIntent": "Repay and withdraw collateral with {#.referralFeePct} referral fee",
         "fields": [
           {
-            "label": "Amount to repay",
+            "label": "Amount to pay, with fee",
             "format": "tokenAmount",
             "params": { "tokenPath": "#.market.loanToken" },
             "path": "#.assets",
@@ -277,7 +369,25 @@
             "visible": "always"
           },
           { "label": "Market collateral", "format": "tokenTicker", "path": "#.market.collateralParams.[].token", "visible": "always" },
-          { "label": "Collateral to take", "format": "raw", "path": "#.collateralWithdrawals.[].assets", "visible": "optional" },
+          {
+            "label": "Maturity",
+            "format": "date",
+            "params": { "encoding": "timestamp" },
+            "path": "#.market.maturity",
+            "visible": "always"
+          },
+          {
+            "path": "#.collateralWithdrawals.[]",
+            "fields": [
+              {
+                "label": "Collateral index (order of Market collateral)",
+                "format": "raw",
+                "path": "collateralIndex",
+                "visible": "always"
+              },
+              { "label": "Collateral to take (base units)", "format": "raw", "path": "assets", "visible": "always" }
+            ]
+          },
           {
             "label": "Collateral to",
             "format": "addressName",
@@ -307,7 +417,6 @@
             "visible": { "ifNotIn": ["115792089237316195423570985008687907853269984665640564039457584007913129639935"] }
           },
           { "label": "Loan token permit", "path": "#.loanTokenPermit", "visible": "never" },
-          { "label": "Collateral index", "path": "#.collateralWithdrawals.[].collateralIndex", "visible": "never" },
           { "label": "Market", "path": "#.market", "visible": "never" }
         ]
       }

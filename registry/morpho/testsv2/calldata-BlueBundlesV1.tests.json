@@ -54,6 +54,18 @@
         "intent": "Supply collateral and borrow",
         "fields": [
           {
+            "label": "Loan token",
+            "value": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+          },
+          {
+            "label": "Collateral token",
+            "value": "0x820C137fa70C8691f0e44Dc420a5e53c168921Dc"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "98%"
+          },
+          {
             "label": "Collateral to supply",
             "value": "12.12479 USDS"
           },
@@ -81,6 +93,18 @@
         "intent": "Supply collateral and borrow",
         "fields": [
           {
+            "label": "Loan token",
+            "value": "0x4200000000000000000000000000000000000006"
+          },
+          {
+            "label": "Collateral token",
+            "value": "0xacfE6019Ed1A7Dc6f7B508C02d1b04ec88cC21bf"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "62.5%"
+          },
+          {
             "label": "Collateral to supply",
             "value": "60 VVV"
           },
@@ -99,6 +123,18 @@
       "expected": {
         "intent": "Supply collateral and borrow",
         "fields": [
+          {
+            "label": "Loan token",
+            "value": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+          },
+          {
+            "label": "Collateral token",
+            "value": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "86%"
+          },
           {
             "label": "Borrow before fees",
             "value": "200 USDC"
@@ -127,6 +163,18 @@
             "value": "0.002 ETH"
           },
           {
+            "label": "Loan token",
+            "value": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+          },
+          {
+            "label": "Collateral token",
+            "value": "0x4200000000000000000000000000000000000006"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "86%"
+          },
+          {
             "label": "Collateral to supply",
             "value": "0.002 WETH"
           },
@@ -153,6 +201,18 @@
       "expected": {
         "intent": "Supply collateral and borrow",
         "fields": [
+          {
+            "label": "Loan token",
+            "value": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+          },
+          {
+            "label": "Collateral token",
+            "value": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "86%"
+          },
           {
             "label": "Collateral to supply",
             "value": "0.00002 cbBTC"
@@ -187,11 +247,19 @@
       "txHash": "0x701fbe1bbcbd9718749f8a03c5a14a5d9b327604030d613ef4e37f640addfb01",
       "expected": {
         "intent": "Supply to Morpho market",
-        "interpolatedIntent": "Supply 1 USDC to Morpho",
+        "interpolatedIntent": "Supply 1 USDC to Morpho, fee included",
         "fields": [
           {
-            "label": "Amount to supply",
+            "label": "Amount to pay, with fee",
             "value": "1 USDC"
+          },
+          {
+            "label": "Collateral token",
+            "value": "0x4200000000000000000000000000000000000006"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "86%"
           },
           {
             "label": "Referral fee",
@@ -216,6 +284,18 @@
       "expected": {
         "intent": "Supply collateral and borrow",
         "fields": [
+          {
+            "label": "Loan token",
+            "value": "0x4200000000000000000000000000000000000006"
+          },
+          {
+            "label": "Collateral token",
+            "value": "0xacfE6019Ed1A7Dc6f7B508C02d1b04ec88cC21bf"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "62.5%"
+          },
           {
             "label": "Borrow before fees",
             "value": "0.5 WETH"
@@ -246,6 +326,18 @@
       "expected": {
         "intent": "Supply collateral and borrow",
         "fields": [
+          {
+            "label": "Loan token",
+            "value": "0x4200000000000000000000000000000000000006"
+          },
+          {
+            "label": "Collateral token",
+            "value": "0xacfE6019Ed1A7Dc6f7B508C02d1b04ec88cC21bf"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "62.5%"
+          },
           {
             "label": "Borrow before fees",
             "value": "0.5 WETH"
@@ -278,8 +370,54 @@
         "intent": "Repay and withdraw collateral",
         "fields": [
           {
+            "label": "Collateral token",
+            "value": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "86%"
+          },
+          {
             "label": "Amount to repay",
             "value": "0.001 USDC"
+          },
+          {
+            "label": "Max amount to spend",
+            "value": "0.001 USDC"
+          },
+          {
+            "label": "Withdraw collateral",
+            "value": "0.00000733 cbBTC"
+          },
+          {
+            "label": "Max resulting LTV",
+            "value": "85.5%"
+          },
+          {
+            "label": "Deadline",
+            "value": "2026-09-29 09:31:06Z"
+          }
+        ],
+        "owner": "Morpho DAO"
+      }
+    },
+    {
+      "description": "Repay all USDC debt by passing the maximum debt shares and withdraw cbBTC collateral (constructed, no on-chain repay with the maximum yet)",
+      "rawTx": "0x02f902f88221058201eb83118c30837ad55083049a8b944d28d900e381ece4b351302f1abe588496793a2b80b902cc827d6bd8000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000cbb7c0000ab88b473b1f5afd9ef808440eed33bf000000000000000000000000663becd10dae6c4a3dcd89f1d76c1174199639b900000000000000000000000046415998764c29ab2a25cbea6254146d50d226870000000000000000000000000000000000000000000000000bef55718ad600000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000003e800000000000000000000000000000000000000000000000000000000000002dd0000000000000000000000000000000000000000000000000bdd91f852f5800000000000000000000000000000000000000000000000000000000000000002600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006abb855a0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000006abb7e652222da44c0",
+      "expected": {
+        "intent": "Repay and withdraw collateral",
+        "fields": [
+          {
+            "label": "Collateral token",
+            "value": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "86%"
+          },
+          {
+            "label": "Debt shares to repay (max = all debt)",
+            "value": "115792089237316195423570985008687907853269984665640564039457584007913129639935"
           },
           {
             "label": "Max amount to spend",
@@ -309,7 +447,15 @@
         "intent": "Repay and withdraw collateral",
         "fields": [
           {
-            "label": "Debt shares to repay",
+            "label": "Collateral token",
+            "value": "0x4200000000000000000000000000000000000006"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "86%"
+          },
+          {
+            "label": "Debt shares to repay (max = all debt)",
             "value": "1273423651784536"
           },
           {
@@ -331,6 +477,14 @@
       "expected": {
         "intent": "Repay and withdraw collateral",
         "fields": [
+          {
+            "label": "Collateral token",
+            "value": "0xcb585250f852C6c6bf90434AB21A00f02833a4af"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "62.5%"
+          },
           {
             "label": "Withdraw collateral",
             "value": "4.488885 cbXRP"
@@ -359,6 +513,14 @@
             "value": "0.22 ETH"
           },
           {
+            "label": "Collateral token",
+            "value": "0xacfE6019Ed1A7Dc6f7B508C02d1b04ec88cC21bf"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "62.5%"
+          },
+          {
             "label": "Amount to repay",
             "value": "0.22 WETH"
           },
@@ -380,11 +542,19 @@
       "txHash": "0xeb6364a77a261e7d3c526dd524ef6738cef28a1e07fe6599eec537a4d2037659",
       "expected": {
         "intent": "Supply to Morpho market",
-        "interpolatedIntent": "Supply 0.99068 USDC to Morpho",
+        "interpolatedIntent": "Supply 0.99068 USDC to Morpho, fee included",
         "fields": [
           {
-            "label": "Amount to supply",
+            "label": "Amount to pay, with fee",
             "value": "0.99068 USDC"
+          },
+          {
+            "label": "Collateral token",
+            "value": "0x0000000f2eB9f69274678c76222B35eEc7588a65"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "91.5%"
           },
           {
             "label": "Deadline",
@@ -410,6 +580,14 @@
             "value": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
           },
           {
+            "label": "Collateral token",
+            "value": "0x0000000f2eB9f69274678c76222B35eEc7588a65"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "91.5%"
+          },
+          {
             "label": "Deadline",
             "value": "2026-09-28 22:51:40Z"
           }
@@ -430,6 +608,14 @@
           {
             "label": "Token",
             "value": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+          },
+          {
+            "label": "Collateral token",
+            "value": "0x0000000f2eB9f69274678c76222B35eEc7588a65"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "91.5%"
           },
           {
             "label": "Referral fee",
@@ -463,7 +649,15 @@
             "value": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
           },
           {
-            "label": "Bundler access until",
+            "label": "Collateral token",
+            "value": "0x93919784C523f39CACaa98Ee0a9d96c3F32b593e"
+          },
+          {
+            "label": "Liquidation LTV",
+            "value": "77%"
+          },
+          {
+            "label": "Bundler access (no expiry), signature valid until",
             "value": "2026-09-28 14:01:55Z"
           },
           {
@@ -478,8 +672,8 @@
       "description": "Move a cbBTC/USDC borrow position to a market with a higher liquidation LTV (constructed, no on-chain migration yet)",
       "rawTx": "0x02f902ce82210580830f424083989680830f4240944d28d900e381ece4b351302f1abe588496793a2b80b902a49834e387000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000cbb7c0000ab88b473b1f5afd9ef808440eed33bf000000000000000000000000663becd10dae6c4a3dcd89f1d76c1174199639b900000000000000000000000046415998764c29ab2a25cbea6254146d50d226870000000000000000000000000000000000000000000000000bef55718ad60000000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000cbb7c0000ab88b473b1f5afd9ef808440eed33bf0000000000000000000000005e38c22be3b2ddd3285089ce8b63bce49c78d7ac00000000000000000000000046415998764c29ab2a25cbea6254146d50d226870000000000000000000000000000000000000000000000000cb2bba6f17b80000000000000000000000000000000000000000000000000000c3663566a580000000000000000000000000000000000000000000000000000000000000000001b111111111111111111111111111111111111111111111111111111111111111122222222222222222222222222222222222222222222222222222222222222220000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006abbe9e000000000000000000000000000000000000000000000000000000000000002800000000000000000000000000000000000000000000000000008e1bc9bf04000000000000000000000000000d433f056270912659f073d5ffe7ae247e39235a5000000000000000000000000000000000000000000000000000000006abbe9e00000000000000000000000000000000000000000000000000000000000000000c0",
       "expected": {
-        "intent": "Move full borrow position",
-        "interpolatedIntent": "Move full borrow position from 86% to 91.5% liquidation LTV",
+        "intent": "Move full borrow position, fees add to debt",
+        "interpolatedIntent": "Move full borrow position from 86% to 91.5% liquidation LTV, fees add to debt",
         "fields": [
           {
             "label": "Collateral token",
@@ -518,7 +712,7 @@
             "value": "0xD433f056270912659f073D5FFE7Ae247e39235A5"
           },
           {
-            "label": "Bundler access until",
+            "label": "Bundler access (no expiry), signature valid until",
             "value": "2026-09-29 16:40:00Z"
           },
           {

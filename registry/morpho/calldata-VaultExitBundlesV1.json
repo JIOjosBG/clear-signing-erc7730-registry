@@ -74,12 +74,33 @@
             "path": "#.deadline",
             "visible": { "ifNotIn": ["115792089237316195423570985008687907853269984665640564039457584007913129639935"] }
           },
-          { "label": "Markets", "path": "#.marketParamsList", "visible": "never" },
+          {
+            "path": "#.marketParamsList.[]",
+            "fields": [
+              { "label": "Loan token", "format": "addressName", "params": { "types": ["token"] }, "path": "loanToken", "visible": "always" },
+              {
+                "label": "Collateral token",
+                "format": "addressName",
+                "params": { "types": ["token"] },
+                "path": "collateralToken",
+                "visible": "always"
+              },
+              {
+                "label": "Liquidation LTV",
+                "format": "unit",
+                "params": { "base": "%", "decimals": 16 },
+                "path": "lltv",
+                "visible": "always"
+              },
+              { "label": "Market oracle", "path": "oracle", "visible": "never" },
+              { "label": "Market rate model", "path": "irm", "visible": "never" }
+            ]
+          },
           { "label": "Shares permit", "path": "#.sharesPermit", "visible": "never" }
         ]
       },
       "vaultExitBundlesV1InKindRedemptionVaultV2(address vault, address adapter, (address loanToken, address collateralToken, address oracle, address irm, uint256 lltv)[] marketParamsList, uint256 exitAssets, (uint256 value, uint256 nonce, uint256 deadline, uint8 v, bytes32 r, bytes32 s) sharesPermit, uint256 deadline)": {
-        "intent": "Exit vault into markets",
+        "intent": "Exit vault into markets, may pay a penalty",
         "fields": [
           {
             "label": "Vault",
@@ -88,7 +109,7 @@
             "path": "#.vault",
             "visible": "always"
           },
-          { "label": "Amount (base units)", "format": "raw", "path": "#.exitAssets", "visible": "always" },
+          { "label": "Exit value before penalty (base units)", "format": "raw", "path": "#.exitAssets", "visible": "always" },
           {
             "label": "Deadline",
             "format": "date",
@@ -97,7 +118,28 @@
             "visible": { "ifNotIn": ["115792089237316195423570985008687907853269984665640564039457584007913129639935"] }
           },
           { "label": "Vault adapter", "path": "#.adapter", "visible": "never" },
-          { "label": "Markets", "path": "#.marketParamsList", "visible": "never" },
+          {
+            "path": "#.marketParamsList.[]",
+            "fields": [
+              { "label": "Loan token", "format": "addressName", "params": { "types": ["token"] }, "path": "loanToken", "visible": "always" },
+              {
+                "label": "Collateral token",
+                "format": "addressName",
+                "params": { "types": ["token"] },
+                "path": "collateralToken",
+                "visible": "always"
+              },
+              {
+                "label": "Liquidation LTV",
+                "format": "unit",
+                "params": { "base": "%", "decimals": 16 },
+                "path": "lltv",
+                "visible": "always"
+              },
+              { "label": "Market oracle", "path": "oracle", "visible": "never" },
+              { "label": "Market rate model", "path": "irm", "visible": "never" }
+            ]
+          },
           { "label": "Shares permit", "path": "#.sharesPermit", "visible": "never" }
         ]
       },

@@ -104,7 +104,7 @@
             "path": "#.vault",
             "visible": "always"
           },
-          { "label": "Amount (base units)", "format": "raw", "path": "#.assets", "visible": { "ifNotIn": ["0"] } },
+          { "label": "Withdraw before fee (base units)", "format": "raw", "path": "#.assets", "visible": { "ifNotIn": ["0"] } },
           {
             "label": "Shares to redeem",
             "format": "tokenAmount",

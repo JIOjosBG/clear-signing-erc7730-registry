@@ -42,7 +42,15 @@
             "value": "cbBTC"
           },
           {
-            "label": "Collateral to take",
+            "label": "Maturity",
+            "value": "2026-08-28 15:00:00Z"
+          },
+          {
+            "label": "Collateral index (order of Market collateral)",
+            "value": "0"
+          },
+          {
+            "label": "Collateral to take (base units)",
             "value": "2541"
           },
           {
@@ -85,7 +93,15 @@
             "value": "cbBTC"
           },
           {
-            "label": "Collateral to take",
+            "label": "Maturity",
+            "value": "2026-08-28 15:00:00Z"
+          },
+          {
+            "label": "Collateral index (order of Market collateral)",
+            "value": "0"
+          },
+          {
+            "label": "Collateral to take (base units)",
             "value": "2541"
           },
           {
@@ -129,6 +145,10 @@
             "value": "WETH"
           },
           {
+            "label": "Maturity",
+            "value": "2026-10-30 15:00:00Z"
+          },
+          {
             "label": "Referral fee",
             "value": "0%"
           },
@@ -167,6 +187,10 @@
           {
             "label": "Market collateral",
             "value": "cbBTC"
+          },
+          {
+            "label": "Maturity",
+            "value": "2026-10-30 15:00:00Z"
           },
           {
             "label": "Referral fee",
@@ -213,7 +237,15 @@
             "value": "cbBTC"
           },
           {
-            "label": "Collateral to supply",
+            "label": "Maturity",
+            "value": "2026-10-30 15:00:00Z"
+          },
+          {
+            "label": "Collateral index (order of Market collateral)",
+            "value": "1"
+          },
+          {
+            "label": "Collateral to supply (base units)",
             "value": "100"
           },
           {
@@ -257,7 +289,15 @@
             "value": "cbBTC"
           },
           {
-            "label": "Collateral to supply",
+            "label": "Maturity",
+            "value": "2026-12-25 15:00:00Z"
+          },
+          {
+            "label": "Collateral index (order of Market collateral)",
+            "value": "0"
+          },
+          {
+            "label": "Collateral to supply (base units)",
             "value": "10070189"
           },
           {
@@ -300,7 +340,15 @@
             "value": "cbBTC"
           },
           {
-            "label": "Collateral to supply",
+            "label": "Maturity",
+            "value": "2026-12-25 15:00:00Z"
+          },
+          {
+            "label": "Collateral index (order of Market collateral)",
+            "value": "0"
+          },
+          {
+            "label": "Collateral to supply (base units)",
             "value": "10070189"
           },
           {
@@ -348,6 +396,10 @@
             "value": "cbBTC"
           },
           {
+            "label": "Maturity",
+            "value": "2026-12-25 15:00:00Z"
+          },
+          {
             "label": "Referral fee",
             "value": "0%"
           },
@@ -380,7 +432,15 @@
             "value": "WETH"
           },
           {
-            "label": "Collateral to take",
+            "label": "Maturity",
+            "value": "2026-08-28 15:00:00Z"
+          },
+          {
+            "label": "Collateral index (order of Market collateral)",
+            "value": "0"
+          },
+          {
+            "label": "Collateral to take (base units)",
             "value": "6400000000000"
           },
           {
@@ -416,7 +476,15 @@
             "value": "cbBTC"
           },
           {
-            "label": "Collateral to take",
+            "label": "Maturity",
+            "value": "2026-10-30 15:00:00Z"
+          },
+          {
+            "label": "Collateral index (order of Market collateral)",
+            "value": "1"
+          },
+          {
+            "label": "Collateral to take (base units)",
             "value": "101"
           },
           {
@@ -440,7 +508,7 @@
         "interpolatedIntent": "Repay and withdraw collateral with 0% referral fee",
         "fields": [
           {
-            "label": "Amount to repay",
+            "label": "Amount to pay, with fee",
             "value": "10 USDC"
           },
           {
@@ -450,6 +518,10 @@
           {
             "label": "Market collateral",
             "value": "cbBTC"
+          },
+          {
+            "label": "Maturity",
+            "value": "2026-09-25 15:00:00Z"
           },
           {
             "label": "Collateral to",
