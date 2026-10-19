@@ -74,6 +74,39 @@
         "20000000000005": "Zcash",
         "1151111081099710": "Solana",
         "9270000000000000": "Sui"
+      },
+      "layerZeroEndpointId": {
+        "30101": "Ethereum",
+        "30102": "BSC",
+        "30106": "Avalanche",
+        "30109": "Polygon",
+        "30110": "Arbitrum One",
+        "30111": "OP Mainnet",
+        "30125": "Celo",
+        "30145": "Gnosis",
+        "30165": "zkSync",
+        "30168": "Solana",
+        "30181": "Mantle",
+        "30183": "Linea",
+        "30184": "Base",
+        "30214": "Scroll",
+        "30243": "Blast",
+        "30260": "Mode",
+        "30319": "World Chain",
+        "30320": "Unichain",
+        "30321": "Lisk",
+        "30324": "Abstract",
+        "30332": "Sonic",
+        "30339": "Ink",
+        "30340": "Soneium",
+        "30362": "Berachain",
+        "30367": "HyperEVM",
+        "30375": "Katana",
+        "30378": "Sui",
+        "30383": "Plasma",
+        "30390": "Monad",
+        "30420": "Tron",
+        "30600": "Stellar"
       }
     }
   },
@@ -775,7 +808,7 @@
       "swapAndStartBridgeTokensViaStargate((bytes32 transactionId, string bridge, string integrator, address referrer, address sendingAssetId, address receiver, uint256 minAmount, uint256 destinationChainId, bool hasSourceSwaps, bool hasDestinationCall) _bridgeData, (address callTo, address approveTo, address sendingAssetId, address receivingAssetId, uint256 fromAmount, bytes callData, bool requiresDeposit)[] _swapData, (uint16 assetId, (uint32 dstEid, bytes32 to, uint256 amountLD, uint256 minAmountLD, bytes extraOptions, bytes composeMsg, bytes oftCmd) sendParams, (uint256 nativeFee, uint256 lzTokenFee) fee, address refundAddress) _stargateData)": {
         "$id": "swapAndStartBridgeTokensViaStargate",
         "intent": "Swap and bridge via Stargate",
-        "interpolatedIntent": "Swap {_swapData.[0].fromAmount}, bridge at least {_bridgeData.minAmount} to {_stargateData.sendParams.to.[12:32]} on LayerZero endpoint {_stargateData.sendParams.dstEid}",
+        "interpolatedIntent": "Swap {_swapData.[0].fromAmount}, bridge at least {_bridgeData.minAmount} to {_stargateData.sendParams.to.[12:32]} on {_stargateData.sendParams.dstEid}",
         "fields": [
           {
             "path": "_swapData.[].fromAmount",
@@ -814,7 +847,8 @@
           {
             "path": "_stargateData.sendParams.dstEid",
             "label": "LayerZero Destination Endpoint",
-            "format": "raw",
+            "format": "enum",
+            "params": { "$ref": "$.metadata.enums.layerZeroEndpointId" },
             "visible": "always"
           },
           {
